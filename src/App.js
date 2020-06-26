@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from 'react';
+import './App.scss';
+import FIREBASE_INITIALIZE from './Config.js'
+
 
 function App() {
+  FIREBASE_INITIALIZE();
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <div className="App">
+        <header className="App-header">
+          <p>
+            Hello
+          </p>
+
+        </header>
+      </div>
+    </Fragment>
   );
 }
 

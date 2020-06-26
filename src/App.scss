@@ -1,0 +1,8 @@
+@import './StyleConfig.scss';
+
+.app {
+    width: 100%;
+    max-width: $max-width;
+    margin: 0 auto;
+    margin-bottom: $gutter;
+}

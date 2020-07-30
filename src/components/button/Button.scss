@@ -1,0 +1,10 @@
+@import '../../StyleConfig.scss';
+
+.ui.button, .ui.buttons .button, .ui.button.or {
+    font-size: 1em;
+    padding-left: 5px;
+}
+
+.ui.button:not(.icon)>.icon:not(.button):not(.dropdown) {
+    margin-right: 17px;
+}

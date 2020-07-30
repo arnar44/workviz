@@ -1,4 +1,6 @@
-$max-width: 1400px;
+$max-width: 1200px;
+$min-width: 900px;
+$min-height: 530px;
 $gutter: 30px;
 
 $font-main:
@@ -13,18 +15,16 @@ $font-heading: 'Oswald',
 
 $spacing-header: 1px;
 
-$color-font: #222;
-$color-background: #e1e1e1;
-$color-gray: #ccc;
-$color-darkGray: #555;
-$color-lightGray: #f2f2f2;
-$color-hover: #a3a2a2;
-$color-invalid: #4e1d04;
-$color-sub: #00985f;
-$color-sub-out: #e55e5b;
-$color-goal-assist: #989898;
-$color-card-yellow: #ff0;
-$color-card-red: #ff5c33;
+$color-font: #232020;
+$color-blue: #4d9dE0;
+$color-red: #E15554;
+//$color-yellow: #E1BC29;
+$color-neutral: #F7F7FF;
+$color-yellow: #FED766;
+$color-light: #F7F9F9;
+$color-green: #61E294;
+$color-active: #4D5382;
+$color-button: #595959;
 
 $transition: 250ms ease-in-out;
 
@@ -55,4 +55,10 @@ $transition: 250ms ease-in-out;
 
 @mixin offset-left($cols: 0) {
     margin-left: ($cols/12 * 100) * 1%;
+}
+
+:export {
+    blueColor: $color-blue;
+    redColor: $color-red;
+    greenColor: $color-green;
 }

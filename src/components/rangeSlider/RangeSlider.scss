@@ -1,0 +1,14 @@
+@import '../../StyleConfig.scss';
+
+.slider {
+    margin: $gutter/2 0;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: center;
+
+    &__min {
+        margin-right: $gutter;
+    }
+}

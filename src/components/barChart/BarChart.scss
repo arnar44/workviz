@@ -1,0 +1,13 @@
+@import '../../StyleConfig.scss';
+
+
+svg rect.Positive {
+    fill: $color-red;
+}
+svg rect.Negative {
+    fill: $color-blue;
+}
+svg rect.Small {
+    fill: $color-green;
+}
+

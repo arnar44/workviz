@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css'
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -9,7 +11,9 @@ import { StateProvider } from './context/StateContext';
 ReactDOM.render(
   <DataProvider>
     <StateProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </StateProvider>
   </DataProvider>,
   document.getElementById('root')

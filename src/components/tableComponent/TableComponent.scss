@@ -31,6 +31,10 @@
     
     &__body {
 
+        &--row {
+            cursor: pointer;
+        }
+
         &--row:nth-child(odd) {
             background-color: #D8D8D8;
         }

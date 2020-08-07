@@ -30,6 +30,7 @@ function TableOverview(props) {
         eoyBalanceMinMax,
         colorByLine,
         showAllInTable,
+        teacherClickedHandler,
     } = useContext(FileContext);
 
     const [ data, setData ] = useState(sessionTOData);
@@ -214,6 +215,7 @@ function TableOverview(props) {
                 removedVariables={removedVariables}
                 colorByLine={colorByLine}
                 nameSetter={getNameWithSymbols}
+                onClickHandler={teacherClickedHandler}
             />
         </Fragment>
     )

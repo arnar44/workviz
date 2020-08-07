@@ -10,7 +10,8 @@ function TableComponent(props) {
         colorCodeControl,
         removedVariables,
         colorByLine,
-        nameSetter
+        nameSetter,
+        onClickHandler
     } = props;
 
     const getColor = (val, col) => {
@@ -65,6 +66,7 @@ function TableComponent(props) {
                                 <tr 
                                     className={`teacher-table__body--row ${getRowColor(obj['balance'])}`}
                                     key={obj.name}
+                                    onClick={() => onClickHandler(obj)}
                                 >
                                     { !removedVariables.includes('Name') && 
                                         <td className='teacher-table__body--col'>{obj.name}</td>

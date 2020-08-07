@@ -48,6 +48,7 @@ const FileProvider = props => {
     const [ eoyBalanceMinMaxSet, setEoyBalanceMinMaxSet ] = useState([]);
     const [ colorByLine, setColorByLine ] = useState(false);
     const [ tmpDataIncluded, setTmpDataIncluded ] = useState(false);
+    const [ showAllInTable, setShowAllInTable ] = useState(false);
 
     // Max values that can be selected in the Multi search (teacher+courses)
     const MAX_SEARCH_SELECTION = 5;
@@ -393,7 +394,9 @@ const FileProvider = props => {
             courseTableData,
             courseSessionData,
             teacherClickedHandler,
-            setTeacherHover
+            setTeacherHover,
+            showAllInTable,
+            setShowAllInTable,
             }}
         >
             {props.children}

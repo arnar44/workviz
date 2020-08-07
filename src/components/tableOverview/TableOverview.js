@@ -29,6 +29,7 @@ function TableOverview(props) {
         eoyBalanceMinMaxSet,
         eoyBalanceMinMax,
         colorByLine,
+        showAllInTable,
     } = useContext(FileContext);
 
     const [ data, setData ] = useState(sessionTOData);
@@ -160,14 +161,11 @@ function TableOverview(props) {
         return hText;
     }
 
-    
-
-
     useEffect(() => {
         let tmpData = sessionTOData;
 
         // Filter data on selected teachers
-        if(selectedTeachers.length !== 0) {
+        if(!showAllInTable && selectedTeachers.length !== 0) {
             tmpData = sessionTOData.filter( teacherObj => selectedTeachers.includes(teacherObj.name));
         }
 
@@ -205,7 +203,7 @@ function TableOverview(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sessionTOData, selectedTeachers, removedPositions, removedDepartments, 
         konteringMinMaxSet, bemannadMinMaxSet, htMinMaxSet, vtMinMaxSet,
-        selfDevMinMaxSet, balanceMinMaxSet, boyBalanceMinMaxSet, eoyBalanceMinMaxSet]);
+        selfDevMinMaxSet, balanceMinMaxSet, boyBalanceMinMaxSet, eoyBalanceMinMaxSet, showAllInTable]);
 
     return (
         <Fragment>

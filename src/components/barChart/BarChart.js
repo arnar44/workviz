@@ -69,8 +69,8 @@ function BarChart(props) {
     const { selectedTeachers } = useContext(FileContext);
 
 
-    const [height, setHeight] = useState(0)
-    const [width, setWidth] = useState(0)
+    const [height, setHeight] = useState(0);
+    const [width, setWidth] = useState(0);
     const axisOffset = 15;
     const svgRef = useRef(null);
 
@@ -124,6 +124,9 @@ function BarChart(props) {
             return `Small ${check}`;
         };
 
+        // Performance var, only fire setters if hover is X long
+        let timer = null;
+
         const bars = g
             .selectAll('barchart')
             .data(data)
@@ -143,12 +146,14 @@ function BarChart(props) {
                 onClick(d);
             })
             .on('mouseenter', (d, i, l) => {
-                onHover(d.name);
+                // Only fire setter (onHover) if hover is > 300 millisek
+                timer = setTimeout( () => onHover(d.name), 300); // TODO: Check if ok when hover extends to courses
                 addTooltip(svg, height, d.name, value, d[value]);
                 const styleStr = editStyleOnHover(l[i].getAttribute('style'), 1, '2px;');
                 l[i].setAttribute('style', styleStr);
             })
             .on('mouseleave', (d, i, l) => {
+                clearTimeout(timer);
                 cleanup(null);
                 svg.select('.tooltip').remove();
                 const styleStr = editStyleOnHover(l[i].getAttribute('style'), -1, '0px;');

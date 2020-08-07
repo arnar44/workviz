@@ -12,6 +12,7 @@ const FileProvider = props => {
     const [ error, setError ] = useState(false);
     // DataContext
     const [ courseTableData, setCourseTableData ] = useState(null);
+    const [ courseSessionData, setCourseSessionData ] = useState(null);
     const [ sessionTOData, setSessionTOData ] = useState(null);
     const [ sessionTODataBoth, setSessionTODataBoth ] = useState(null);
     const [ barchartData, setBarchartData ] = useState(null);
@@ -48,6 +49,46 @@ const FileProvider = props => {
     const [ colorByLine, setColorByLine ] = useState(false);
     const [ tmpDataIncluded, setTmpDataIncluded ] = useState(false);
 
+    // Max values that can be selected in the Multi search (teacher+courses)
+    const MAX_SEARCH_SELECTION = 5;
+
+    // Handler for when "Include Temp Teachers" is toggled true/false
+    const onIncludeTempToggle = (e,d) => {
+        const i = d.checked ? 1 : 0;
+        setTmpDataIncluded(d.checked);
+        setSessionTOData(sessionTODataBoth[i]);
+        setBarchartData(barchartDataBoth[i].sort( (a,b) => d3.descending(a[variableOnDisplay], b[variableOnDisplay])));
+
+        // If tmp teacher selected but user switched to "Include tmp teachers = false"
+        if(!d.checked) {
+            const tempTeachers = [
+                'Lab handl Teknolog MID',
+                'Lab handl Teknolog TMH',
+                'Lab handl Teknolog CST',
+                'UNKNOWN MID',
+                'Fo Extern MID',
+                'NN Doktorand'
+            ];
+                
+            setSelectedTeachers(prevTeachers => prevTeachers.filter( tn => !tempTeachers.includes(tn)));
+        }
+    };
+
+    // Handles teacher search/selection in the OverviewControls component
+    const teacherSearchHandler = (e,d) => {
+        if(d.value.length <= MAX_SEARCH_SELECTION)
+            setSelectedTeachers(d.value);
+        else
+            window.alert(`Max ${MAX_SEARCH_SELECTION} can be selected`);
+    }
+
+    // Handles course search/selection in the OverviewControls component
+    const courseSearchHandler = (e,d) => {
+        if(d.value.length <= MAX_SEARCH_SELECTION)
+            setSelectedCourses(d.value);
+        else
+            window.alert(`Max ${MAX_SEARCH_SELECTION} can be selected`);
+    }
 
 
     const filterTemp = (data) => {
@@ -250,6 +291,7 @@ const FileProvider = props => {
                         setSessionTODataBoth([sessionDataFiltered, sessionDataUF]);
 
                         // Course Overview Data - Courses
+                        setCourseSessionData(courses);
                         setCourseTableData(setCourseOverviewData(courses));
 
 
@@ -290,9 +332,10 @@ const FileProvider = props => {
             barchartDataBoth,
             setBarchartData,
             selectedTeachers,
-            setSelectedTeachers,
             selectedCourses,
-            setSelectedCourses,
+            teacherSearchHandler,
+            courseSearchHandler,
+            onIncludeTempToggle,
             variableOnDisplay,
             setVariableOnDisplay,
             removedVariables,
@@ -332,7 +375,8 @@ const FileProvider = props => {
             setColorByLine,
             tmpDataIncluded,
             setTmpDataIncluded,
-            courseTableData
+            courseTableData,
+            courseSessionData
             }}
         >
             {props.children}

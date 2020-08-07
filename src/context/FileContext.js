@@ -4,19 +4,26 @@ import firebase from '../Config';
 
 const FileContext = React.createContext();
 
-const DataProvider = props => {
-
+const FileProvider = props => {
+    // FileContext
     const [ teacherData, setTeacherData ] = useState(null);
     const [ courseData, setCourseData ] = useState(null);
+    const [ loading, setLoading ] = useState(true);
+    const [ error, setError ] = useState(false);
+    // DataContext
     const [ courseTableData, setCourseTableData ] = useState(null);
     const [ sessionTOData, setSessionTOData ] = useState(null);
     const [ sessionTODataBoth, setSessionTODataBoth ] = useState(null);
     const [ barchartData, setBarchartData ] = useState(null);
     const [ barchartDataBoth, setBarchartDataBoth ] = useState(null);
-    const [ loading, setLoading ] = useState(true);
-    const [ error, setError ] = useState(false);
+    // SearchContext - Overview search
     const [ selectedTeachers, setSelectedTeachers ] = useState([]);
     const [ selectedCourses, setSelectedCourses ] = useState([]);
+    // HoverContext 
+    const [ teacherHover, setTeacherHover ] = useState(null);
+    const [ courseHover, setCourseHover ] = useState(null);
+
+    // FilterContext
     const [ variableOnDisplay, setVariableOnDisplay ] = useState('Balance');
     const [ removedVariables, setRemovedVariables ] = useState([]);
     const [ removedPositions, setRemovedPositions ] = useState([]);
@@ -40,6 +47,7 @@ const DataProvider = props => {
     const [ eoyBalanceMinMaxSet, setEoyBalanceMinMaxSet ] = useState([]);
     const [ colorByLine, setColorByLine ] = useState(false);
     const [ tmpDataIncluded, setTmpDataIncluded ] = useState(false);
+
 
 
     const filterTemp = (data) => {
@@ -332,5 +340,5 @@ const DataProvider = props => {
     );
 };
 
-const DataConsumer = FileContext.Consumer;
-export { DataProvider, DataConsumer, FileContext };
+const FileConsumer = FileContext.Consumer;
+export { FileProvider, FileConsumer, FileContext };

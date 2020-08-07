@@ -5,17 +5,14 @@ import 'semantic-ui-css/semantic.min.css'
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { DataProvider } from './context/FileContext';
-import { StateProvider } from './context/StateContext';
+import { FileProvider } from './context/FileContext';
 
 ReactDOM.render(
-  <DataProvider>
-    <StateProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StateProvider>
-  </DataProvider>,
+  <FileProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </FileProvider>,
   document.getElementById('root')
 );
 

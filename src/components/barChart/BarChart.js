@@ -124,13 +124,13 @@ function BarChart(props) {
             .style('stroke-width', checkHover)
             .on('mouseenter', (d, i, l) => {
                 onHover(d, i, l);
-                svg.select('.tooltip').remove();
                 addTooltip(svg, height, d.name, value, d[value]);
+                //mouseover();
             })
             .on('mouseleave', () => {
                 // Remove tooltip?
+                //mouseout();
             });
-
 
         if(activeHover)
             addTooltip(svg, height, activeHover.name, value, activeHover[value]);
@@ -202,7 +202,7 @@ function BarChart(props) {
 
     
     return (
-        <div className='TeacherBarChart'>
+        <div className='TeacherBarChart' id='TeacherBarChart'>
             <svg className='BarChartOverview' ref={svgRef}></svg>
         </div>
     )

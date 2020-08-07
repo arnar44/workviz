@@ -94,8 +94,15 @@ const FileProvider = props => {
     const teacherClickedHandler = (teacher) => {
         if(selectedTeachers.length === MAX_SEARCH_SELECTION)
             window.alert(`Max ${MAX_SEARCH_SELECTION} can be selected`);
-        else
-            setSelectedTeachers(prev => prev.concat(teacher.name));
+        else {
+            setSelectedTeachers(prev => {
+                if(!prev.includes(teacher.name))
+                    return prev.concat(teacher.name)
+                
+                return prev;
+            });
+
+        }
     }
 
 

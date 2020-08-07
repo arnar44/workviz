@@ -126,11 +126,13 @@ function BarChart(props) {
                 onClick(d);
             })
             .on('mouseenter', (d, i, l) => {
-                onHover(d, i, l);
+                onHover(d.name);
+                l[i].setAttribute('style', l[i].getAttribute('style') + 'stroke-width: 2px;');
                 addTooltip(svg, height, d.name, value, d[value]);
             })
-            .on('mouseleave', () => {
-                cleanup();
+            .on('mouseleave', (d, i, l) => {
+                cleanup(null);
+                l[i].setAttribute('style', l[i].getAttribute('style') + 'stroke-width: 0;');
                 svg.select('.tooltip').remove();
             });
 

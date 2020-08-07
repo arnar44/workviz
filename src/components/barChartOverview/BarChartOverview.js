@@ -13,8 +13,7 @@ function BarChartOverview(props) {
 
     const { 
         selectedTeachers,
-        barchartHoverHandler,
-        teacherHoverCleanup,
+        setTeacherHover,
         teacherClickedHandler
     } = useContext(FileContext);
     
@@ -36,7 +35,7 @@ function BarChartOverview(props) {
             margin: { top: 15, left: 30, bottom: 15, right: 30 },
             smallBarLimit: 2,
             checkFocus: checkFocus,
-            onHover: barchartHoverHandler,
+            onHover: setTeacherHover,
             onClick: teacherClickedHandler
         }
 
@@ -45,7 +44,7 @@ function BarChartOverview(props) {
    
     useEffect( () => {
         return () => {
-            teacherHoverCleanup();
+            setTeacherHover(null);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -59,7 +58,7 @@ function BarChartOverview(props) {
                 data={data}
                 parentRef={topViewRef}
                 value={variableOnDisplay}
-                cleanup={teacherHoverCleanup}
+                cleanup={setTeacherHover}
             />
         </Fragment>
     )

@@ -23,6 +23,23 @@ function addLegend(legend, cn, text, cY, tY) {
         .text(text);
 }
 
+function editStyleOnHover(styleString, opSet, swSet) {
+
+    // Edit Opacity
+    const op = 'opacity';
+    const opI = styleString.indexOf(op) + op.length + 2;
+    const opVal = parseInt(styleString[opI]) + opSet;
+    const edit1 = styleString.substr(0, opI) + opVal + styleString.substr(opI+('' + opVal).length);
+    
+    // Edit stroke-width
+    const sw = 'stroke-width';
+    const swI = edit1.indexOf(sw) + sw.length + 2;
+    const edit2 = edit1.substr(0, swI) + swSet + edit1.substr(swI + ('' + swSet).length);
+    
+    return edit2;
+
+}
+
 function addTooltip(svg, height, name, val, dVal) {
     svg.select('.tooltip').remove();
     const tooltip = svg
@@ -127,13 +144,15 @@ function BarChart(props) {
             })
             .on('mouseenter', (d, i, l) => {
                 onHover(d.name);
-                l[i].setAttribute('style', l[i].getAttribute('style') + 'stroke-width: 2px;');
                 addTooltip(svg, height, d.name, value, d[value]);
+                const styleStr = editStyleOnHover(l[i].getAttribute('style'), 1, '2px;');
+                l[i].setAttribute('style', styleStr);
             })
             .on('mouseleave', (d, i, l) => {
                 cleanup(null);
-                l[i].setAttribute('style', l[i].getAttribute('style') + 'stroke-width: 0;');
                 svg.select('.tooltip').remove();
+                const styleStr = editStyleOnHover(l[i].getAttribute('style'), -1, '0px;');
+                l[i].setAttribute('style', styleStr);
             });
 
         const legend = svg

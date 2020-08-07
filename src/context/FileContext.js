@@ -22,6 +22,7 @@ const FileProvider = props => {
     const [ selectedCourses, setSelectedCourses ] = useState([]);
     // HoverContext 
     const [ teacherHover, setTeacherHover ] = useState(null);
+    const [ teacherHoverObj, setTeacherHoverObj ] = useState(null);
     const [ courseHover, setCourseHover ] = useState(null);
 
     // FilterContext
@@ -80,7 +81,7 @@ const FileProvider = props => {
             setSelectedTeachers(d.value);
         else
             window.alert(`Max ${MAX_SEARCH_SELECTION} can be selected`);
-    }
+    };
 
     // Handles course search/selection in the OverviewControls component
     const courseSearchHandler = (e,d) => {
@@ -88,6 +89,55 @@ const FileProvider = props => {
             setSelectedCourses(d.value);
         else
             window.alert(`Max ${MAX_SEARCH_SELECTION} can be selected`);
+    };
+
+    // Handles hover on teacher in the Teacher Barchart Overview
+    const barchartHoverHandler = (data, index, list) => {
+        setTeacherHover(data.name);
+        data.obj = list[index]    
+        list[index].setAttribute('style', list[index].getAttribute('style') + 'stroke-width: 2px; opacity: 1;');
+        setTeacherHoverObj(prevData => {
+            // Re-entering same teacher - do nothing
+            if(prevData !== null && prevData.name === data.name) 
+                return prevData;
+
+            // Remove hover from former hover
+            if(prevData !== null && prevData.obj !== null) {
+                let style = prevData.obj.getAttribute('style') + 'stroke-width: 0; opacity: ';
+                const opacity = selectedTeachers.length === 0 ? '1;'
+                                : selectedTeachers.includes(prevData.name) 
+                                ? '1;'
+                                : '0.4;';
+                prevData.obj.setAttribute('style', style+opacity); 
+            }
+
+            return data;
+        });
+    };
+
+    // Cleanup for both teacherHover and teacherHoverObj
+    const teacherHoverCleanup = () => {
+        setTeacherHover(null);
+        setTeacherHoverObj( prevData => {
+            if(prevData !== null && prevData.obj !== null) {
+                let style = prevData.obj.getAttribute('style') + 'stroke-width: 0; opacity: ';
+                const opacity = selectedTeachers.length === 0 ? '1;'
+                                : selectedTeachers.includes(prevData.name) 
+                                ? '1;'
+                                : '0.4;';
+                prevData.obj.setAttribute('style', style+opacity);
+            };
+
+            return null;
+        });
+    };
+
+    // Handler - If teacher is clicked in table/barchart -> try to add to Selected/Searched teachers
+    const teacherClickedHandler = (teacher) => {
+        if(selectedTeachers.length === MAX_SEARCH_SELECTION)
+            window.alert(`Max ${MAX_SEARCH_SELECTION} can be selected`);
+        else
+            setSelectedTeachers(prev => prev.concat(teacher.name));
     }
 
 
@@ -376,7 +426,10 @@ const FileProvider = props => {
             tmpDataIncluded,
             setTmpDataIncluded,
             courseTableData,
-            courseSessionData
+            courseSessionData,
+            teacherHoverCleanup,
+            barchartHoverHandler,
+            teacherClickedHandler
             }}
         >
             {props.children}

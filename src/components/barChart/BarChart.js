@@ -43,11 +43,11 @@ function BarChart(props) {
         margin,
         smallBarLimit,
         onHover,
+        onClick,
         checkFocus,
-        checkHover
     } = props.chartProps;
 
-    const { data, parentRef, value, activeHover } = props;
+    const { data, parentRef, value, cleanup } = props;
 
     const { selectedTeachers } = useContext(FileContext);
 
@@ -121,20 +121,18 @@ function BarChart(props) {
             .attr('class', fillBars)
             .style('opacity', checkFocus)
             .style('stroke', '#000')
-            .style('stroke-width', checkHover)
+            .style('stroke-width', 0)
+            .on('click', d => {
+                onClick(d);
+            })
             .on('mouseenter', (d, i, l) => {
                 onHover(d, i, l);
                 addTooltip(svg, height, d.name, value, d[value]);
-                //mouseover();
             })
             .on('mouseleave', () => {
-                // Remove tooltip?
-                //mouseout();
+                cleanup();
+                svg.select('.tooltip').remove();
             });
-
-        if(activeHover)
-            addTooltip(svg, height, activeHover.name, value, activeHover[value]);
-
 
         const legend = svg
             .append('g')

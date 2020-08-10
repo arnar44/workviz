@@ -216,6 +216,8 @@ function TableOverview(props) {
                 colorByLine={colorByLine}
                 nameSetter={getNameWithSymbols}
                 onClickHandler={teacherClickedHandler}
+                showAll={showAllInTable}
+                selected={selectedTeachers}
             />
         </Fragment>
     )

@@ -2,7 +2,6 @@ import React from 'react';
 
 import './TableComponent.scss';
 
-
 function TableComponent(props) {
     const { 
         headers,
@@ -11,7 +10,9 @@ function TableComponent(props) {
         removedVariables,
         colorByLine,
         nameSetter,
-        onClickHandler
+        onClickHandler,
+        selected,
+        showAll
     } = props;
 
     const getColor = (val, col) => {
@@ -62,6 +63,14 @@ function TableComponent(props) {
                 <tbody className='teacher-table__body'>
                     {
                         data.map( obj => {
+                            let selectedCN = 'teacher-table__body--col';
+                            let selectedName = obj.name;
+
+                            if (showAll && selected.includes(obj.name)) {
+                                selectedCN += ' selected';
+                                selectedName += ' *';
+                            } 
+
                             return (
                                 <tr 
                                     className={`teacher-table__body--row ${getRowColor(obj['balance'])}`}
@@ -69,7 +78,7 @@ function TableComponent(props) {
                                     onClick={() => onClickHandler(obj)}
                                 >
                                     { !removedVariables.includes('Name') && 
-                                        <td className='teacher-table__body--col'>{obj.name}</td>
+                                        <td className={selectedCN}>{selectedName}</td>
                                     }
                                     { !removedVariables.includes('Position') && 
                                         <td className='teacher-table__body--col'>{obj.position}</td>

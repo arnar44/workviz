@@ -17,7 +17,8 @@ function TopViewControls(props) {
         selectedTeachers,
         selectedCourses,
         showAllInTable,
-        setShowAllInTable
+        setShowAllInTable,
+        allowPopup
     } = useContext(FileContext);
 
     const [ togglerDisabled, setTogglerDisabled ] = useState(true);
@@ -33,6 +34,10 @@ function TopViewControls(props) {
         else
             setTogglerDisabled(true);
     }, [selectedCourses, selectedTeachers])
+
+    const showAllInfo = ['Allows user to switch between showing all/selected teachers in table.',
+                        'If "Show All" is enabled, selected teachers are highlighted in table.',
+                        'Setting can only be toggled if a teacher is selected.']
     
     return (
         <div className='topview-Controls'>
@@ -56,7 +61,10 @@ function TopViewControls(props) {
                         handler={toggleHandler}
                         checked={showAllInTable}
                         disabled={togglerDisabled}
-                    />
+                        withPopup={allowPopup}
+                        popupHeader='Info'
+                        popupText={showAllInfo}
+                    />                    
                 </div>
             }
         </div>    

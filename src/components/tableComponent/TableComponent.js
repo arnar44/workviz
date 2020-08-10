@@ -1,4 +1,5 @@
 import React from 'react';
+import { Popup, Header } from 'semantic-ui-react';
 
 import './TableComponent.scss';
 
@@ -12,7 +13,8 @@ function TableComponent(props) {
         nameSetter,
         onClickHandler,
         selected,
-        showAll
+        showAll,
+        allowPopup
     } = props;
 
     const getColor = (val, col) => {
@@ -34,31 +36,59 @@ function TableComponent(props) {
         if(val <= -2)
             return 'blue';
         return 'green'
-    }  
+    }
+
+    const tableHeadComp = () => {
+        return (
+            <tr className='teacher-table__head teacher-table__head--row'>
+                {   
+                    headers.map( headerObj => {
+                        if(removedVariables.includes(headerObj.label))
+                            return
+
+                        return (
+                            <th 
+                                className='teacher-table__head--col'
+                                onClick={headerObj.handler}
+                                key={headerObj.label}
+                                id={headerObj.value}
+                                >
+                                {nameSetter(headerObj.label, headerObj.value)}
+                            </th>
+                        )
+                    })
+                }
+            </tr>
+        )
+    }
+
+    const headPopupDecider = () => {
+        if(allowPopup) {
+            return (
+                <Popup 
+                    trigger={tableHeadComp()}
+                    position='top center'
+                >
+                    <>
+                        <Header as='h4' content='Table Info'/>
+                        {tableInfo.map( txt => <p>{txt}</p> )}
+                    </>
+                </Popup>
+            )
+        }
+        else {
+            return tableHeadComp();
+        }
+    }
+
+    const tableInfo = ['Click to sort as/des.', 'Arrows \u2193 and \u2191 indicate as/des sorting on variable.',
+                        '* symbol indicates a filter has been applied to variable in "Table Settings".'];
     
     return (
         <div className='table-wrapper'>
             <table className='teacher-table'>
                 <thead className='teacher-table__head'>
-                    <tr className='teacher-table__head teacher-table__head--row'>
-                        {   
-                            headers.map( headerObj => {
-                                if(removedVariables.includes(headerObj.label))
-                                    return
-
-                                return (
-                                    <th 
-                                        className='teacher-table__head--col'
-                                        onClick={headerObj.handler}
-                                        key={headerObj.label}
-                                        id={headerObj.value}
-                                    >
-                                    {nameSetter(headerObj.label, headerObj.value)}
-                                    </th>
-                                    )
-                                })
-                            }
-                    </tr>
+                    {headPopupDecider()}
                 </thead>
                 <tbody className='teacher-table__body'>
                     {

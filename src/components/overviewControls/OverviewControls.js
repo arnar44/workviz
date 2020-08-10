@@ -13,7 +13,8 @@ function OverviewControls(props) {
             tmpDataIncluded,
             teacherSearchHandler,
             courseSearchHandler,
-            onIncludeTempToggle
+            onIncludeTempToggle,
+            allowPopup
     } = useContext(FileContext);
 
     // Creates options for MultiSearch - Teachers
@@ -37,6 +38,9 @@ function OverviewControls(props) {
             }
         })
     }
+
+    const includeTempInfo = ['Allows user to alter the data; showing/not showing temp teachers in data.',
+                            'If a temp teacher is "Selected" and data set to not include temp teachers, teacher will de-selected'];
 
     const teacherOptions = getTeacherSearchProps(sessionTOData);
     const courseOptions = getCourseSearchProps(courseSessionData);
@@ -63,6 +67,9 @@ function OverviewControls(props) {
                     label='Include Temp Teachers' 
                     handler={onIncludeTempToggle}
                     checked={tmpDataIncluded}
+                    withPopup={allowPopup}
+                    popupHeader='Info'
+                    popupText={includeTempInfo}
                 />
             </div>
         </div>

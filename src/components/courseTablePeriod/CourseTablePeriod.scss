@@ -19,7 +19,7 @@
         -ms-transition: opacity 0.3s ease-in-out;
         -o-transition: opacity 0.3s ease-in-out;
         transition: opacity 0.3s ease-in-out;
-
+        
         &--Red {
             background-color: $color-red;
             //border-color: $color-red;
@@ -34,4 +34,12 @@
 
         }
     }
+}
+
+.focus {
+    border: 1px solid black;
+}
+
+.noFocus {
+    opacity: 0.3;
 }

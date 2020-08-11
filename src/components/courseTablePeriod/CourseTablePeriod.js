@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import './CourseTablePeriod.scss';
+import { FileContext } from '../../context/FileContext';
+
 
 function CourseTablePeriod(props) {
     const { courses } = props;
+    const { selectedCourses } = useContext(FileContext);
 
-    // `Max ${MAX_SEARCH_SELECTION} can be selected`
+    const getFocus = (course) => {
+        if(selectedCourses.length === 0)
+            return '';
 
-    // teacher-table__head teacher-table__head--row
+        if(selectedCourses.includes(course))
+            return ' focus';
+
+        return ' noFocus';
+    }
 
     return (
         <div className="courseTablePeriod">
             {courses.map( course => {
+                const focus = getFocus(course.code);
                 return (
                     <button 
                         key={course.code}
-                        className={`courseTablePeriod__course courseTablePeriod__course--${course.color}`}
+                        className={`courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`}
                     >
                         {course.code}
                     </button>

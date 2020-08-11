@@ -4,6 +4,7 @@ import firebase from '../Config';
 
 const FileContext = React.createContext();
 
+<<<<<<< HEAD
 const FileProvider = props => {
     // FileContext
     const [ teacherData, setTeacherData ] = useState(null);
@@ -13,10 +14,18 @@ const FileProvider = props => {
     // DataContext
     const [ courseTableData, setCourseTableData ] = useState(null);
     const [ courseSessionData, setCourseSessionData ] = useState(null);
+=======
+const DataProvider = props => {
+
+    const [ teacherData, setTeacherData ] = useState(null);
+    const [ courseData, setCourseData ] = useState(null);
+    const [ courseTableData, setCourseTableData ] = useState(null);
+>>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
     const [ sessionTOData, setSessionTOData ] = useState(null);
     const [ sessionTODataBoth, setSessionTODataBoth ] = useState(null);
     const [ barchartData, setBarchartData ] = useState(null);
     const [ barchartDataBoth, setBarchartDataBoth ] = useState(null);
+<<<<<<< HEAD
     // SearchContext - Overview search
     const [ selectedTeachers, setSelectedTeachers ] = useState([]);
     const [ selectedCourses, setSelectedCourses ] = useState([]);
@@ -25,6 +34,12 @@ const FileProvider = props => {
     const [ courseHover, setCourseHover ] = useState(null);
 
     // FilterContext
+=======
+    const [ loading, setLoading ] = useState(true);
+    const [ error, setError ] = useState(false);
+    const [ selectedTeachers, setSelectedTeachers ] = useState([]);
+    const [ selectedCourses, setSelectedCourses ] = useState([]);
+>>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
     const [ variableOnDisplay, setVariableOnDisplay ] = useState('Balance');
     const [ removedVariables, setRemovedVariables ] = useState([]);
     const [ removedPositions, setRemovedPositions ] = useState([]);
@@ -48,6 +63,7 @@ const FileProvider = props => {
     const [ eoyBalanceMinMaxSet, setEoyBalanceMinMaxSet ] = useState([]);
     const [ colorByLine, setColorByLine ] = useState(false);
     const [ tmpDataIncluded, setTmpDataIncluded ] = useState(false);
+<<<<<<< HEAD
     const [ showAllInTable, setShowAllInTable ] = useState(false);
     const [ allowPopup, setAllowPopup ] = useState(false);
     const [ taskAlloFilter, setTaskAlloFilter ] = useState(false);
@@ -109,6 +125,8 @@ const FileProvider = props => {
 
         }
     }
+=======
+>>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
 
 
     const filterTemp = (data) => {
@@ -311,7 +329,10 @@ const FileProvider = props => {
                         setSessionTODataBoth([sessionDataFiltered, sessionDataUF]);
 
                         // Course Overview Data - Courses
+<<<<<<< HEAD
                         setCourseSessionData(courses);
+=======
+>>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
                         setCourseTableData(setCourseOverviewData(courses));
 
 
@@ -352,10 +373,16 @@ const FileProvider = props => {
             barchartDataBoth,
             setBarchartData,
             selectedTeachers,
+<<<<<<< HEAD
             selectedCourses,
             teacherSearchHandler,
             courseSearchHandler,
             onIncludeTempToggle,
+=======
+            setSelectedTeachers,
+            selectedCourses,
+            setSelectedCourses,
+>>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
             variableOnDisplay,
             setVariableOnDisplay,
             removedVariables,
@@ -395,6 +422,7 @@ const FileProvider = props => {
             setColorByLine,
             tmpDataIncluded,
             setTmpDataIncluded,
+<<<<<<< HEAD
             courseTableData,
             courseSessionData,
             teacherClickedHandler,
@@ -408,6 +436,9 @@ const FileProvider = props => {
             setTaskAlloFilter,
             grayCourseFilter,
             setGrayCourseFilter
+=======
+            courseTableData
+>>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
             }}
         >
             {props.children}

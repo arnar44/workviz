@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useContext } from 'react';
 
 import './CourseTablePeriod.scss';
@@ -37,13 +38,36 @@ function CourseTablePeriod(props) {
     // Yellow
     // Gray
     // Red
+=======
+import React from 'react';
+
+import './CourseTablePeriod.scss';
+
+function CourseTablePeriod(props) {
+    const { courses } = props;
+
+    // `Max ${MAX_SEARCH_SELECTION} can be selected`
+
+    // teacher-table__head teacher-table__head--row
+>>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
 
     return (
         <div className="courseTablePeriod">
             {courses.map( course => {
+<<<<<<< HEAD
                 const focus = getFocus(course.code);
                 const cName = `courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`
                 return filterCourses(course.color, course.code, cName); 
+=======
+                return (
+                    <button 
+                        key={course.code}
+                        className={`courseTablePeriod__course courseTablePeriod__course--${course.color}`}
+                    >
+                        {course.code}
+                    </button>
+                )
+>>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
             })}
         </div>
     )

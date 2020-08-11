@@ -1,0 +1,31 @@
+@import '../../StyleConfig.scss';
+
+.Overview-controls {
+    min-height: 95px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
+    padding: $gutter/3;
+    margin-bottom: $gutter/2;
+
+    display: flex;
+    
+    
+    &__searches {
+        flex-basis: 100%;
+        margin-right: $gutter/2;
+        font-size: 0.8em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__toggler {
+        width: 20%;
+    }
+
+
+    
+}
+
+.ui.fluid.multiple.search.selection.dropdown {
+    margin-bottom: 0px;
+}

@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css'
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { DataProvider } from './context/FileContext';
-import { StateProvider } from './context/StateContext';
+import { FileProvider } from './context/FileContext';
 
 ReactDOM.render(
-  <DataProvider>
-    <StateProvider>
+  <FileProvider>
+    <BrowserRouter>
       <App />
-    </StateProvider>
-  </DataProvider>,
+    </BrowserRouter>
+  </FileProvider>,
   document.getElementById('root')
 );
 

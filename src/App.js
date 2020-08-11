@@ -1,21 +1,21 @@
 import React, { Fragment } from 'react';
+import { Helmet } from 'react-helmet';
+import { Route, Switch } from 'react-router-dom';
 import './App.scss';
-import FIREBASE_INITIALIZE from './Config.js'
 
+import Home from './routes/home/Home';
 
-function App() {
-  FIREBASE_INITIALIZE();
+function App(props) {
+  const { location } = props
   
   return (
     <Fragment>
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Hello
-          </p>
-
-        </header>
-      </div>
+        <Helmet defaultTitle='WorkViz' titleTemplate='%s - WorkViz'></Helmet>
+        <main className='App'>
+          <Switch location={location}>
+            <Route exact path='/' component={Home} />
+          </Switch>
+        </main>
     </Fragment>
   );
 }

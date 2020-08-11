@@ -1,8 +1,15 @@
 @import './StyleConfig.scss';
 
-.app {
-    width: 100%;
-    max-width: $max-width;
-    margin: 0 auto;
-    margin-bottom: $gutter;
+.App {
+    height: 100vh;
+    min-width: $min-width;
+    min-height: $min-height;
+
+    padding: $gutter/2;
+    
+    @media (min-width: $max-width + 30px) {
+        max-width: $max-width;
+        margin: 0 auto;
+
+    }
 }

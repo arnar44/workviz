@@ -1,0 +1,68 @@
+@import '../../StyleConfig.scss';
+
+.table-wrapper {
+    height: calc(100% - 35px);
+    width: 100%;
+    padding: 0 $gutter;
+    margin-top: $gutter/2;
+    overflow: auto;
+}
+
+.teacher-table {
+    max-height: 100%;
+    width: 100%;
+    font-size: 0.8em;
+    table-layout: fixed;
+    text-align: center;
+
+    &__head {
+
+        width: 100%;
+        
+        &--col {
+            background-color: black;
+            color: white;
+            position: sticky;
+            top:0;
+            z-index: 2;
+            cursor: pointer;
+        }
+    }
+    
+    &__body {
+
+        &--row {
+            cursor: pointer;
+        }
+
+        &--row:nth-child(odd) {
+            background-color: #D8D8D8;
+        }
+    }
+}
+
+.red {
+    background-color: $color-red !important;
+}
+
+.blue {
+    background-color: $color-blue !important;
+    
+}
+
+.green {
+    background-color: $color-green !important;
+
+}
+
+.selected {
+    border: 2px solid black;
+}
+
+#name {
+    width: 18%;
+}
+
+#position, #department {
+    width: 8%;
+}

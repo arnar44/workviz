@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useContext } from 'react';
 
 import './BottomView.scss';
@@ -28,15 +27,6 @@ function BottomView(props) {
         setTeacherAlloFilter(false);
     }
 
-=======
-import React from 'react';
-
-import './BottomView.scss';
-import CourseOverView from '../courseOverView/CourseOverView';
-
-function BottomView(props) {
-
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
 
     /*
         First take:
@@ -46,14 +36,11 @@ function BottomView(props) {
     */
     return (
         <div className='BottomView'>
-<<<<<<< HEAD
             <BottomViewControls 
                 taskFilterHandler={taskFilterHandler}
                 teacherFilterHandler={teacherFilterHandler}
                 grayFilterHandler={grayFilterHandler}
             />
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
             <CourseOverView />
         </div>
     )

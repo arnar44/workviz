@@ -23,7 +23,6 @@ function addLegend(legend, cn, text, cY, tY) {
         .text(text);
 }
 
-<<<<<<< HEAD
 function editStyleOnHover(styleString, opSet, swSet) {
 
     // Edit Opacity
@@ -41,8 +40,6 @@ function editStyleOnHover(styleString, opSet, swSet) {
 
 }
 
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
 function addTooltip(svg, height, name, val, dVal) {
     svg.select('.tooltip').remove();
     const tooltip = svg
@@ -63,30 +60,16 @@ function BarChart(props) {
         margin,
         smallBarLimit,
         onHover,
-<<<<<<< HEAD
         onClick,
         checkFocus,
     } = props.chartProps;
 
     const { data, parentRef, value, cleanup } = props;
-=======
-        checkFocus,
-        checkHover
-    } = props.chartProps;
-
-    const { data, parentRef, value, activeHover } = props;
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
-
     const { selectedTeachers } = useContext(FileContext);
 
 
-<<<<<<< HEAD
     const [height, setHeight] = useState(0);
     const [width, setWidth] = useState(0);
-=======
-    const [height, setHeight] = useState(0)
-    const [width, setWidth] = useState(0)
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
     const axisOffset = 15;
     const svgRef = useRef(null);
 
@@ -140,12 +123,9 @@ function BarChart(props) {
             return `Small ${check}`;
         };
 
-<<<<<<< HEAD
         // Performance var, only fire setters if hover is X long
         let timer = null;
 
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
         const bars = g
             .selectAll('barchart')
             .data(data)
@@ -160,7 +140,6 @@ function BarChart(props) {
             .attr('class', fillBars)
             .style('opacity', checkFocus)
             .style('stroke', '#000')
-<<<<<<< HEAD
             .style('stroke-width', 0)
             .on('click', d => {
                 onClick(d);
@@ -180,23 +159,6 @@ function BarChart(props) {
                 l[i].setAttribute('style', styleStr);
             });
 
-=======
-            .style('stroke-width', checkHover)
-            .on('mouseenter', (d, i, l) => {
-                onHover(d, i, l);
-                svg.select('.tooltip').remove();
-                addTooltip(svg, height, d.name, value, d[value]);
-            })
-            .on('mouseleave', () => {
-                // Remove tooltip?
-            });
-
-
-        if(activeHover)
-            addTooltip(svg, height, activeHover.name, value, activeHover[value]);
-
-
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
         const legend = svg
             .append('g')
             .attr('class', 'legend')
@@ -263,11 +225,7 @@ function BarChart(props) {
 
     
     return (
-<<<<<<< HEAD
         <div className='TeacherBarChart' id='TeacherBarChart'>
-=======
-        <div className='TeacherBarChart'>
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
             <svg className='BarChartOverview' ref={svgRef}></svg>
         </div>
     )

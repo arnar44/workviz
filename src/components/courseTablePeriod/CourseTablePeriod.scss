@@ -18,12 +18,8 @@
         -moz-transition: opacity 0.3s ease-in-out;
         -ms-transition: opacity 0.3s ease-in-out;
         -o-transition: opacity 0.3s ease-in-out;
-        transition: opacity 0.3s ease-in-out;
-<<<<<<< HEAD
-        
-=======
+        transition: opacity 0.3s ease-in-out;        
 
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
         &--Red {
             background-color: $color-red;
             //border-color: $color-red;
@@ -38,7 +34,6 @@
 
         }
     }
-<<<<<<< HEAD
 }
 
 .focus {
@@ -47,6 +42,4 @@
 
 .noFocus {
     opacity: 0.3;
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
 }

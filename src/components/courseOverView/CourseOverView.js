@@ -7,12 +7,7 @@ import { FileContext } from '../../context/FileContext';
 function CourseOverView(props) {
 
     const { courseTableData } = useContext(FileContext);
-
-<<<<<<< HEAD
-=======
-
     
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
     return (
         <div className="courseTable">
             <CourseTableColumn 

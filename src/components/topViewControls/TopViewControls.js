@@ -1,17 +1,10 @@
-<<<<<<< HEAD
 import React, { useContext, useEffect, useState } from 'react';
-=======
-import React from 'react';
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
 
 import './TopViewControls.scss';
 import Selection from '../selection/Selection';
 import TableSettings from '../tableSettings/TableSettings';
-<<<<<<< HEAD
 import Toggler from '../toggler/Toggler';
 import { FileContext } from '../../context/FileContext';
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
 
 function TopViewControls(props) {
     const {
@@ -19,7 +12,6 @@ function TopViewControls(props) {
         viewSwitchProps,
         variableSwitchProps 
     } = props;
-<<<<<<< HEAD
 
     const { 
         selectedTeachers,
@@ -46,8 +38,6 @@ function TopViewControls(props) {
     const showAllInfo = ['Allows user to switch between showing all/selected teachers in table.',
                         'If "Show All" is enabled, selected teachers are highlighted in table.',
                         'Setting can only be toggled if a teacher is selected.']
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
     
     return (
         <div className='topview-Controls'>
@@ -64,7 +54,6 @@ function TopViewControls(props) {
                     <TableSettings />
                 </div>
             }
-<<<<<<< HEAD
             { view === 'Table' &&
                 <div className='topview-Controls__val'>
                     <Toggler 
@@ -78,8 +67,6 @@ function TopViewControls(props) {
                     />                    
                 </div>
             }
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
         </div>    
            
     )

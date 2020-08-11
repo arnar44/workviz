@@ -1,15 +1,8 @@
 import React from 'react';
-<<<<<<< HEAD
+
 import { Popup, Header } from 'semantic-ui-react';
-
 import './TableComponent.scss';
 
-=======
-
-import './TableComponent.scss';
-
-
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
 function TableComponent(props) {
     const { 
         headers,
@@ -17,15 +10,11 @@ function TableComponent(props) {
         colorCodeControl,
         removedVariables,
         colorByLine,
-<<<<<<< HEAD
         nameSetter,
         onClickHandler,
         selected,
         showAll,
         allowPopup
-=======
-        nameSetter
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
     } = props;
 
     const getColor = (val, col) => {
@@ -47,7 +36,6 @@ function TableComponent(props) {
         if(val <= -2)
             return 'blue';
         return 'green'
-<<<<<<< HEAD
     }
 
     const tableHeadComp = () => {
@@ -95,42 +83,16 @@ function TableComponent(props) {
 
     const tableInfo = ['Click to sort as/des.', 'Arrows \u2193 and \u2191 indicate as/des sorting on variable.',
                         '* symbol indicates a filter has been applied to variable in "Table Settings".'];
-=======
-    }  
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
     
     return (
         <div className='table-wrapper'>
             <table className='teacher-table'>
                 <thead className='teacher-table__head'>
-<<<<<<< HEAD
                     {headPopupDecider()}
-=======
-                    <tr className='teacher-table__head teacher-table__head--row'>
-                        {   
-                            headers.map( headerObj => {
-                                if(removedVariables.includes(headerObj.label))
-                                    return
-
-                                return (
-                                    <th 
-                                        className='teacher-table__head--col'
-                                        onClick={headerObj.handler}
-                                        key={headerObj.label}
-                                        id={headerObj.value}
-                                    >
-                                    {nameSetter(headerObj.label, headerObj.value)}
-                                    </th>
-                                    )
-                                })
-                            }
-                    </tr>
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
                 </thead>
                 <tbody className='teacher-table__body'>
                     {
                         data.map( obj => {
-<<<<<<< HEAD
                             let selectedCN = 'teacher-table__body--col';
                             let selectedName = obj.name;
 
@@ -139,22 +101,14 @@ function TableComponent(props) {
                                 selectedName += ' *';
                             } 
 
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
                             return (
                                 <tr 
                                     className={`teacher-table__body--row ${getRowColor(obj['balance'])}`}
                                     key={obj.name}
-<<<<<<< HEAD
                                     onClick={() => onClickHandler(obj)}
                                 >
                                     { !removedVariables.includes('Name') && 
                                         <td className={selectedCN}>{selectedName}</td>
-=======
-                                >
-                                    { !removedVariables.includes('Name') && 
-                                        <td className='teacher-table__body--col'>{obj.name}</td>
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
                                     }
                                     { !removedVariables.includes('Position') && 
                                         <td className='teacher-table__body--col'>{obj.position}</td>

@@ -29,12 +29,9 @@ function TableOverview(props) {
         eoyBalanceMinMaxSet,
         eoyBalanceMinMax,
         colorByLine,
-<<<<<<< HEAD
         showAllInTable,
         teacherClickedHandler,
         allowPopup
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
     } = useContext(FileContext);
 
     const [ data, setData ] = useState(sessionTOData);
@@ -166,21 +163,11 @@ function TableOverview(props) {
         return hText;
     }
 
-<<<<<<< HEAD
-=======
-    
-
-
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
     useEffect(() => {
         let tmpData = sessionTOData;
 
         // Filter data on selected teachers
-<<<<<<< HEAD
         if(!showAllInTable && selectedTeachers.length !== 0) {
-=======
-        if(selectedTeachers.length !== 0) {
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
             tmpData = sessionTOData.filter( teacherObj => selectedTeachers.includes(teacherObj.name));
         }
 
@@ -218,11 +205,7 @@ function TableOverview(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sessionTOData, selectedTeachers, removedPositions, removedDepartments, 
         konteringMinMaxSet, bemannadMinMaxSet, htMinMaxSet, vtMinMaxSet,
-<<<<<<< HEAD
         selfDevMinMaxSet, balanceMinMaxSet, boyBalanceMinMaxSet, eoyBalanceMinMaxSet, showAllInTable]);
-=======
-        selfDevMinMaxSet, balanceMinMaxSet, boyBalanceMinMaxSet, eoyBalanceMinMaxSet]);
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
 
     return (
         <Fragment>
@@ -233,13 +216,10 @@ function TableOverview(props) {
                 removedVariables={removedVariables}
                 colorByLine={colorByLine}
                 nameSetter={getNameWithSymbols}
-<<<<<<< HEAD
                 onClickHandler={teacherClickedHandler}
                 showAll={showAllInTable}
                 selected={selectedTeachers}
                 allowPopup={allowPopup}
-=======
->>>>>>> 45c14bbbb7e50e1f69a68c00fab39d635e2ad191
             />
         </Fragment>
     )

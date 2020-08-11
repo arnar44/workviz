@@ -1,0 +1,17 @@
+@import '../../StyleConfig.scss';
+
+.cButton {
+    padding: 5px $gutter;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: white;
+}
+
+.cButton:hover {
+    transition: background-color 0.8s ease-in-out;
+}
+
+.cButton:focus {
+    outline: 0;
+}

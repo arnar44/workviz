@@ -50,6 +50,9 @@ const FileProvider = props => {
     const [ tmpDataIncluded, setTmpDataIncluded ] = useState(false);
     const [ showAllInTable, setShowAllInTable ] = useState(false);
     const [ allowPopup, setAllowPopup ] = useState(false);
+    const [ taskAlloFilter, setTaskAlloFilter ] = useState(false);
+    const [ teacherAlloFilter, setTeacherAlloFilter ] = useState(false);
+    const [ grayCourseFilter, setGrayCourseFilter ] = useState(false);
 
     // Max values that can be selected in the Multi search (teacher+courses)
     const MAX_SEARCH_SELECTION = 5;
@@ -398,7 +401,13 @@ const FileProvider = props => {
             setTeacherHover,
             showAllInTable,
             setShowAllInTable,
-            allowPopup
+            allowPopup,
+            teacherAlloFilter,
+            setTeacherAlloFilter,
+            taskAlloFilter,
+            setTaskAlloFilter,
+            grayCourseFilter,
+            setGrayCourseFilter
             }}
         >
             {props.children}

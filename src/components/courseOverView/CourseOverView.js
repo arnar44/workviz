@@ -8,8 +8,6 @@ function CourseOverView(props) {
 
     const { courseTableData } = useContext(FileContext);
 
-
-    
     return (
         <div className="courseTable">
             <CourseTableColumn 

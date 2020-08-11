@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import './BottomView.scss';
 import CourseOverView from '../courseOverView/CourseOverView';
+import BottomViewControls from '../bottomViewControls/BottomViewControls';
+import { FileContext } from '../../context/FileContext';
 
 function BottomView(props) {
+
+    const { setTaskAlloFilter, setTeacherAlloFilter, setGrayCourseFilter } = useContext(FileContext);
+
+    const taskFilterHandler = () => {
+        setTaskAlloFilter( prev => !prev);
+        setTeacherAlloFilter(false);
+        setGrayCourseFilter(false);
+    }
+
+    const teacherFilterHandler = () => {
+        setTeacherAlloFilter(prev => !prev);
+        setTaskAlloFilter(false);
+        setGrayCourseFilter(false);
+    }
+
+    const grayFilterHandler = () => {
+        setGrayCourseFilter(prev => !prev);
+        setTaskAlloFilter(false);
+        setTeacherAlloFilter(false);
+    }
 
 
     /*
@@ -14,6 +36,11 @@ function BottomView(props) {
     */
     return (
         <div className='BottomView'>
+            <BottomViewControls 
+                taskFilterHandler={taskFilterHandler}
+                teacherFilterHandler={teacherFilterHandler}
+                grayFilterHandler={grayFilterHandler}
+            />
             <CourseOverView />
         </div>
     )

@@ -4,6 +4,8 @@
 .courseTablePeriod {
 
     padding-bottom: $gutter/2;
+    vertical-align: top;
+
 
     &__course {
 
@@ -33,7 +35,6 @@
         }
         &--Gray {
             //background-color: $color-button;
-
         }
     }
 }

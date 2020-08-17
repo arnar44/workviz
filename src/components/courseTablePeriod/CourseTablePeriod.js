@@ -4,7 +4,7 @@ import './CourseTablePeriod.scss';
 import { FileContext } from '../../context/FileContext';
 
 function CourseTablePeriod(props) {
-    const { courses, minH, colRef } = props;
+    const { courses } = props;
 
     const { selectedCourses,
             taskAlloFilter,
@@ -34,19 +34,16 @@ function CourseTablePeriod(props) {
         if(grayCourseFilter && color === 'Gray')
             return <button key={code} className={cName}>{code}</button>
     }
-
-    const style = !minH ? {} : {minHeight: `${minH}px`};
-
-    
+   
     return (
-        <div ref={colRef} style={style} className="courseTablePeriod">
+        <td className='courseTablePeriod'>
             {courses.map( course => {
-                const focus = getFocus(course.code);
-                const cName = `courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`
-                return filterCourses(course.color, course.code, cName); 
+            const focus = getFocus(course.code);
+            const cName = `courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`
+            return filterCourses(course.color, course.code, cName); 
 
             })}
-        </div>
+        </td>
     )
 }
 

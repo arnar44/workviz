@@ -126,8 +126,8 @@ function BarChart(props) {
         // Performance var, only fire setters if hover is X long
         let timer = null;
 
-        const bars = g
-            .selectAll('barchart')
+        // Bars
+        g.selectAll('barchart')
             .data(data)
             .join('rect')
             .attr('id', d => `bar${d.name.replace(' ', '')}`)

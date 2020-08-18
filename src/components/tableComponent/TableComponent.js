@@ -44,21 +44,20 @@ function TableComponent(props) {
         return (
             <tr className='teacher-table__head teacher-table__head--row'>
                 {   
-                    headers.map( headerObj => {
-                        if(removedVariables.includes(headerObj.label))
-                            return
-
-                        return (
-                            <th 
-                                className='teacher-table__head--col'
-                                onClick={headerObj.handler}
-                                key={headerObj.label}
-                                id={headerObj.value}
-                                >
-                                {nameSetter(headerObj.label, headerObj.value)}
-                            </th>
-                        )
-                    })
+                    headers
+                        .filter( hObj => !removedVariables.includes(hObj.label))
+                        .map( headerObj => { 
+                            return (
+                                <th 
+                                    className='teacher-table__head--col'
+                                    onClick={headerObj.handler}
+                                    key={headerObj.label}
+                                    id={headerObj.value}
+                                    >
+                                    {nameSetter(headerObj.label, headerObj.value)}
+                                </th>
+                            )
+                        })
                 }
             </tr>
         )

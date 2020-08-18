@@ -2,13 +2,28 @@ import React, { useContext } from 'react';
 
 import './BottomViewControls.scss';
 import CButton from '../cButton/CButton';
+import Toggler from '../toggler/Toggler';
 import styles from '../../StyleConfig.scss';
 import { FileContext } from '../../context/FileContext';
 
 function BottomViewControls(props) {
 
     const { taskFilterHandler, teacherFilterHandler, grayFilterHandler } = props;
-    const { taskAlloFilter, teacherAlloFilter, grayCourseFilter } = useContext(FileContext);
+    const { 
+        taskAlloFilter, 
+        teacherAlloFilter, 
+        grayCourseFilter,
+        courseHighlighting,
+        setCourseHighlighting,
+        allowPopup
+    } = useContext(FileContext);
+
+    const togglerHandler = (e,d) => {
+        setCourseHighlighting(d.checked);
+    }
+
+    const togglerPopupInfo = ['Allows users to decide if highlightin is allowed.',
+                        'If "Allow Highlighting" is disabled, courses will not be highlighted on hovering teachers or when teachers/courses are selected in the top controls']
   
     const getStyles = (color) => {
         return [
@@ -50,6 +65,16 @@ function BottomViewControls(props) {
                     text='Courses On Schedule'
                     style={getStyles(styles.grayColor)}
                     styleNum={grayCourseFilter}
+                />
+            </div>
+            <div className='bottomView-Controls__val'>
+                <Toggler 
+                    label='Allow Highlighting' 
+                    handler={togglerHandler}
+                    checked={courseHighlighting}
+                    withPopup={allowPopup}
+                    popupHeader='Info'
+                    popupText={togglerPopupInfo}
                 />
             </div>
         </div>    

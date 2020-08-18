@@ -49,8 +49,11 @@ const FileProvider = props => {
     const [ eoyBalanceMinMaxSet, setEoyBalanceMinMaxSet ] = useState([]);
     const [ colorByLine, setColorByLine ] = useState(false);
     const [ tmpDataIncluded, setTmpDataIncluded ] = useState(false);
+
     const [ showAllInTable, setShowAllInTable ] = useState(false);
     const [ allowPopup, setAllowPopup ] = useState(false);
+    const [ courseHighlighting, setCourseHighlighting ] = useState(true);
+
     const [ taskAlloFilter, setTaskAlloFilter ] = useState(false);
     const [ teacherAlloFilter, setTeacherAlloFilter ] = useState(false);
     const [ grayCourseFilter, setGrayCourseFilter ] = useState(false);
@@ -414,6 +417,8 @@ const FileProvider = props => {
             setTaskAlloFilter,
             grayCourseFilter,
             setGrayCourseFilter,
+            courseHighlighting,
+            setCourseHighlighting
             }}
         >
             {props.children}

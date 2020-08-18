@@ -10,10 +10,16 @@ function CourseTablePeriod(props) {
             taskAlloFilter,
             teacherAlloFilter,
             teacherHover,
-            grayCourseFilter } = useContext(FileContext);
+            grayCourseFilter,
+            courseHighlighting
+        } = useContext(FileContext);
 
     const getFocus = (course) => {
-        // No Courses selected and no teacher hovered -> No
+        // When "highlighting" is disabled return
+        if(!courseHighlighting)
+            return '';
+
+        // No Courses selected and no teacher hovered -> return
         if(!teacherHover && selectedCourses.length === 0)
             return '';
 

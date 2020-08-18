@@ -10,6 +10,7 @@ function CourseTablePeriod(props) {
             taskAlloFilter,
             teacherAlloFilter,
             teacherHover,
+            setCourseHover,
             grayCourseFilter,
             courseHighlighting
         } = useContext(FileContext);
@@ -37,18 +38,29 @@ function CourseTablePeriod(props) {
         return ' noFocus';
     }
 
-    const filterCourses = (color, code, cName) => {
-        if(!taskAlloFilter && !teacherAlloFilter && !grayCourseFilter) 
-            return <button key={code} className={cName}>{code}</button>
-            
-        if(taskAlloFilter && color === 'Red')
-            return <button key={code} className={cName}>{code}</button>
-            
-        if(teacherAlloFilter && color === 'Yellow')
-            return <button key={code} className={cName}>{code}</button>
-            
-        if(grayCourseFilter && color === 'Gray')
-            return <button key={code} className={cName}>{code}</button>
+    let timer = null;
+    
+    const filterCourses = (color, code, cName, teachers) => {
+        const noFilter = !taskAlloFilter && !teacherAlloFilter && !grayCourseFilter;
+        const redFilter = taskAlloFilter && color === 'Red';
+        const yellowFilter = teacherAlloFilter && color === 'Yellow';
+        const grayFilter = grayCourseFilter && color === 'Gray';
+
+
+        if(noFilter || redFilter || yellowFilter || grayFilter)
+            return (
+                <button 
+                    key={code} 
+                    className={cName}
+                    onMouseEnter={() => {
+                        clearTimeout(timer);
+                        setCourseHover(teachers)
+                    }}
+                    onMouseLeave={() => timer = setTimeout( () => setCourseHover(null), 200)}
+                >
+                {code}
+                </button>
+            )
     }
    
     return (
@@ -56,7 +68,7 @@ function CourseTablePeriod(props) {
             {courses.map( course => {
             const focus = getFocus(course.code);
             const cName = `courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`
-            return filterCourses(course.color, course.code, cName); 
+            return filterCourses(course.color, course.code, cName, course.teachers); 
 
             })}
         </td>

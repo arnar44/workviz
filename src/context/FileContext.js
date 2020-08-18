@@ -23,7 +23,7 @@ const FileProvider = props => {
     const [ selectedCourses, setSelectedCourses ] = useState([]);
     // HoverContext 
     const [ teacherHover, setTeacherHover ] = useState(null);
-    const [ courseHover, setCourseHover ] = useState([]);
+    const [ courseHover, setCourseHover ] = useState(null);
 
     // FilterContext
     const [ variableOnDisplay, setVariableOnDisplay ] = useState('Balance');
@@ -257,6 +257,7 @@ const FileProvider = props => {
                 code: c[0],
                 shortName: c[1]['Short Name'],
                 color: getCourseColor(c[1]),
+                teachers: Object.keys(c[1]['Teachers'])
             };
 
             // Group periods
@@ -408,6 +409,8 @@ const FileProvider = props => {
             teacherClickedHandler,
             teacherHover,
             setTeacherHover,
+            courseHover,
+            setCourseHover,
             showAllInTable,
             setShowAllInTable,
             allowPopup,

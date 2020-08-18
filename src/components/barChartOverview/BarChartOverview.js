@@ -14,20 +14,28 @@ function BarChartOverview(props) {
     const { 
         selectedTeachers,
         setTeacherHover,
-        teacherClickedHandler
+        teacherClickedHandler,
+        courseHover
     } = useContext(FileContext);
     
     const getChartProps = () => {
 
 
         const checkFocus = (d, i, l) => {
-            if(selectedTeachers.length === 0)
-                return 1;
-            
-            else if(selectedTeachers.includes(d.name))
-                return 1;
-            
-            return 0.4;
+            if(courseHover) {
+                if(courseHover.includes(d.name))
+                    return 1;
+
+                return 0.4;
+            }
+            else if(selectedTeachers.length !== 0) {
+                if(selectedTeachers.includes(d.name))
+                    return 1;
+                
+                return 0.4; 
+            }
+
+            return 1;
         }
         
         //const data = getTeacherData(sessionTeachers, false, toVisualize);

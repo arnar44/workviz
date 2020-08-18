@@ -32,10 +32,12 @@ function TableOverview(props) {
         showAllInTable,
         teacherClickedHandler,
         allowPopup,
-        setTeacherHover
+        setTeacherHover,
+        courseHover
     } = useContext(FileContext);
 
     const [ data, setData ] = useState(sessionTOData);
+    const [ hoverData, setHoverData ] = useState(null);
     const [ orderCol, setOrderCol ] = useState(['none', false]);
 
     const onHeaderClickHandler = (e) => {
@@ -164,6 +166,15 @@ function TableOverview(props) {
         return hText;
     }
 
+    // Handles course hover
+    useEffect(() => {
+        if(courseHover)
+            setHoverData(sessionTOData.filter( tObj => courseHover.includes(tObj.name))); 
+        else
+            setHoverData(null);
+    }, [courseHover, sessionTOData]);
+
+    // Handles filters and Selection (in top view)
     useEffect(() => {
         let tmpData = sessionTOData;
 
@@ -212,7 +223,7 @@ function TableOverview(props) {
         <Fragment>
             <TableComponent
                 headers={headers}
-                data={data}
+                data={ hoverData === null ? data : hoverData}
                 colorCodeControl={colorCodeControl}
                 removedVariables={removedVariables}
                 colorByLine={colorByLine}

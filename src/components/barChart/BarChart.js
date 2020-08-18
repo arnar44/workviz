@@ -64,7 +64,7 @@ function BarChart(props) {
         checkFocus,
     } = props.chartProps;
 
-    const { data, parentRef, value, cleanup } = props;
+    const { data, parentRef, value } = props;
     const { selectedTeachers } = useContext(FileContext);
 
 
@@ -145,15 +145,15 @@ function BarChart(props) {
                 onClick(d);
             })
             .on('mouseenter', (d, i, l) => {
-                // Only fire setter (onHover) if hover is > 300 millisek
-                timer = setTimeout( () => onHover(d.name), 300); // TODO: Check if ok when hover extends to courses
+                // Only fire setter (onHover) if hover is > 200 millisek
+                timer = setTimeout( () => onHover(d.courses), 200);
                 addTooltip(svg, height, d.name, value, d[value]);
                 const styleStr = editStyleOnHover(l[i].getAttribute('style'), 1, '2px;');
                 l[i].setAttribute('style', styleStr);
             })
             .on('mouseleave', (d, i, l) => {
                 clearTimeout(timer);
-                cleanup(null);
+                onHover(null);
                 svg.select('.tooltip').remove();
                 const styleStr = editStyleOnHover(l[i].getAttribute('style'), -1, '0px;');
                 l[i].setAttribute('style', styleStr);

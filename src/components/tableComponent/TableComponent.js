@@ -14,7 +14,9 @@ function TableComponent(props) {
         onClickHandler,
         selected,
         showAll,
-        allowPopup
+        allowPopup,
+        mouseEnterHandler,
+        mouseLeaveHandler
     } = props;
 
     const getColor = (val, col) => {
@@ -106,6 +108,8 @@ function TableComponent(props) {
                                     className={`teacher-table__body--row ${getRowColor(obj['balance'])}`}
                                     key={obj.name}
                                     onClick={() => onClickHandler(obj)}
+                                    onMouseEnter={ () => mouseEnterHandler(obj.courses)}
+                                    onMouseLeave={ () => mouseLeaveHandler()}
                                 >
                                     { !removedVariables.includes('Name') && 
                                         <td className={selectedCN}>{selectedName}</td>

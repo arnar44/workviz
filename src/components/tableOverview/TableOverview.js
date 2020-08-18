@@ -31,7 +31,8 @@ function TableOverview(props) {
         colorByLine,
         showAllInTable,
         teacherClickedHandler,
-        allowPopup
+        allowPopup,
+        setTeacherHover
     } = useContext(FileContext);
 
     const [ data, setData ] = useState(sessionTOData);
@@ -220,6 +221,8 @@ function TableOverview(props) {
                 showAll={showAllInTable}
                 selected={selectedTeachers}
                 allowPopup={allowPopup}
+                mouseEnterHandler={(c) => setTeacherHover(c) }
+                mouseLeaveHandler={() => setTeacherHover(null) }
             />
         </Fragment>
     )

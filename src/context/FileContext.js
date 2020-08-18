@@ -23,7 +23,7 @@ const FileProvider = props => {
     const [ selectedCourses, setSelectedCourses ] = useState([]);
     // HoverContext 
     const [ teacherHover, setTeacherHover ] = useState(null);
-    const [ courseHover, setCourseHover ] = useState(null);
+    const [ courseHover, setCourseHover ] = useState([]);
 
     // FilterContext
     const [ variableOnDisplay, setVariableOnDisplay ] = useState('Balance');
@@ -133,13 +133,15 @@ const FileProvider = props => {
     const getBarchartData = (teacherData) => {
         return Object.entries(teacherData)
             .map(p => {
+                const courses = p[1]['Course Hours Totals'] ? Object.keys(p[1]['Course Hours Totals']) : [];
                 return {
                     'name': p[0],
                     'Balance': p[1]['Balance (%)'],
                     'BOY Balance': p[1]['BOY Balance'],
                     'EOY Balance': p[1]['EOY Balance'],
                     'dep': p[1]['Department'],
-                    'pos': p[1]['Position']
+                    'pos': p[1]['Position'],
+                    'courses': courses
                 }
             })
             .sort( (a,b) => d3.descending(a['Balance'], b['Balance']));
@@ -162,6 +164,7 @@ const FileProvider = props => {
                             balance: t[1]['Balance (%)'],
                             boyBalance: t[1]['BOY Balance'],
                             eoyBalance: t[1]['EOY Balance'],
+                            courses: t[1]['Course Hours Totals'] ? Object.keys(t[1]['Course Hours Totals']) : []
                         }
                     })
     }
@@ -400,6 +403,7 @@ const FileProvider = props => {
             courseTableData,
             courseSessionData,
             teacherClickedHandler,
+            teacherHover,
             setTeacherHover,
             showAllInTable,
             setShowAllInTable,

@@ -9,14 +9,24 @@ function CourseTablePeriod(props) {
     const { selectedCourses,
             taskAlloFilter,
             teacherAlloFilter,
+            teacherHover,
             grayCourseFilter } = useContext(FileContext);
 
     const getFocus = (course) => {
-        if(selectedCourses.length === 0)
+        // No Courses selected and no teacher hovered -> No
+        if(!teacherHover && selectedCourses.length === 0)
             return '';
 
-        if(selectedCourses.includes(course))
-            return ' focus';
+        // Teacher hovere is priority #1
+        if(teacherHover) {
+            if(teacherHover.includes(course))
+                return ' focus';
+        }
+        // Selected Courses is priority #2
+        else if(selectedCourses.length !== 0) {
+            if(selectedCourses.includes(course))
+                return ' focus';
+        }
 
         return ' noFocus';
     }

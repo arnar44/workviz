@@ -59,7 +59,6 @@ function BarChartOverview(props) {
                 data={data}
                 parentRef={topViewRef}
                 value={variableOnDisplay}
-                cleanup={setTeacherHover}
             />
         </Fragment>
     )

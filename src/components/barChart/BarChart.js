@@ -65,7 +65,7 @@ function BarChart(props) {
     } = props.chartProps;
 
     const { data, parentRef, value } = props;
-    const { selectedTeachers, courseHover } = useContext(FileContext);
+    const { selectedTeachers, courseHover, selectedCourses, isolatedSearch } = useContext(FileContext);
 
 
     const [height, setHeight] = useState(0);
@@ -221,7 +221,7 @@ function BarChart(props) {
             };
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [data, height, width, value, selectedTeachers, courseHover]);
+      }, [data, height, width, value, selectedTeachers, courseHover, selectedCourses, isolatedSearch]);
 
     
     return (

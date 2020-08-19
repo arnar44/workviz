@@ -14,7 +14,8 @@ function CourseTablePeriod(props) {
             teacherHover,
             setCourseHover,
             grayCourseFilter,
-            courseHighlighting
+            courseHighlighting,
+            courseClickedHandler
         } = useContext(FileContext);
 
     const getFocus = (course, teachers) => {
@@ -68,6 +69,7 @@ function CourseTablePeriod(props) {
                         setCourseHover(teachers)
                     }}
                     onMouseLeave={() => timer = setTimeout( () => setCourseHover(null), 200)}
+                    onClick={()=> courseClickedHandler(code)}
                 >
                 {code}
                 </button>

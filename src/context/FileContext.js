@@ -111,7 +111,19 @@ const FileProvider = props => {
                 
                 return prev;
             });
+        }
+    }
 
+    const courseClickedHandler = (code) => {
+        if(selectedCourses.length === MAX_SEARCH_SELECTION)
+            window.alert(`Max ${MAX_SEARCH_SELECTION} can be selected`);
+        else {
+            setSelectedCourses(prev => {
+                if(!prev.includes(code))
+                    return prev.concat(code)
+                
+                return prev;
+            });
         }
     }
 
@@ -408,6 +420,7 @@ const FileProvider = props => {
             courseTableData,
             courseSessionData,
             teacherClickedHandler,
+            courseClickedHandler,
             teacherHover,
             setTeacherHover,
             courseHover,

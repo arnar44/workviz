@@ -7,6 +7,8 @@ function CourseTablePeriod(props) {
     const { courses } = props;
 
     const { selectedCourses,
+            selectedTeachers,
+            isolatedSearch,
             taskAlloFilter,
             teacherAlloFilter,
             teacherHover,
@@ -15,13 +17,14 @@ function CourseTablePeriod(props) {
             courseHighlighting
         } = useContext(FileContext);
 
-    const getFocus = (course) => {
+    const getFocus = (course, teachers) => {
         // When "highlighting" is disabled return
         if(!courseHighlighting)
             return '';
 
-        // No Courses selected and no teacher hovered -> return
-        if(!teacherHover && selectedCourses.length === 0)
+        // Nothing hovered, no selected courses, no selected teachers (or seleceted teachers but search is isolated) -> neutral state 
+        const check = (isolatedSearch) || (!isolatedSearch && selectedTeachers.length === 0)
+        if(!teacherHover && selectedCourses.length === 0 && check)
             return '';
 
         // Teacher hovere is priority #1
@@ -30,9 +33,17 @@ function CourseTablePeriod(props) {
                 return ' focus';
         }
         // Selected Courses is priority #2
-        else if(selectedCourses.length !== 0) {
-            if(selectedCourses.includes(course))
-                return ' focus';
+        else if(selectedCourses.length !== 0 || selectedTeachers.length !== 0) {
+            // If isolatedSearch -> only match courses with selected Courses
+            if(isolatedSearch) {
+                if(selectedCourses.includes(course))
+                    return ' focus';
+            }
+            // If NOT isolatedSearch -> match with selected Courses AND selected Teachers
+            else {
+                if(selectedCourses.includes(course) || teachers.some( t => selectedTeachers.includes(t)))
+                    return ' focus';
+            }
         }
 
         return ' noFocus';
@@ -66,10 +77,9 @@ function CourseTablePeriod(props) {
     return (
         <td className='courseTablePeriod'>
             {courses.map( course => {
-            const focus = getFocus(course.code);
-            const cName = `courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`
-            return filterCourses(course.color, course.code, cName, course.teachers); 
-
+                const focus = getFocus(course.code, course.teachers);
+                const cName = `courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`
+                return filterCourses(course.color, course.code, cName, course.teachers); 
             })}
         </td>
     )

@@ -14,7 +14,9 @@ function OverviewControls(props) {
             teacherSearchHandler,
             courseSearchHandler,
             onIncludeTempToggle,
-            allowPopup
+            allowPopup,
+            isolatedSearch,
+            setIsolatedSearch
     } = useContext(FileContext);
 
     // Creates options for MultiSearch - Teachers
@@ -42,6 +44,9 @@ function OverviewControls(props) {
     const includeTempInfo = ['Allows user to alter the data; showing/not showing temp teachers in data.',
                             'If a temp teacher is "Selected" and data set to not include temp teachers, teacher will de-selected'];
 
+    const isolatedSearchInfo = ['Allows user to decide if searches are isolated to their domain.',
+                                'If checked, searching for courses will only search for courses, if not it will also filter on teachers that are involved in the searched course. Same goes for the teacher search'];
+
     const teacherOptions = getTeacherSearchProps(sessionTOData);
     const courseOptions = getCourseSearchProps(courseSessionData);
 
@@ -63,15 +68,27 @@ function OverviewControls(props) {
                     cn='courseSearchId'
                 />
             </div>
-            <div className='Overview-controls__toggler'>
-                <Toggler 
-                    label='Include Temp Teachers' 
-                    handler={onIncludeTempToggle}
-                    checked={tmpDataIncluded}
-                    withPopup={allowPopup}
-                    popupHeader='Info'
-                    popupText={includeTempInfo}
-                />
+            <div className='Overview-controls__toggler-container'>
+                <div className='Overview-controls__toggler-container Overview-controls__toggler-container--toggler'>
+                    <Toggler 
+                        label='Include Temp Teachers' 
+                        handler={onIncludeTempToggle}
+                        checked={tmpDataIncluded}
+                        withPopup={allowPopup}
+                        popupHeader='Info'
+                        popupText={includeTempInfo}
+                    />
+                </div>
+                <div className='Overview-controls__toggler-container Overview-controls__toggler-container--toggler'>
+                    <Toggler 
+                        label='Isolated Search' 
+                        handler={(e ,d) => setIsolatedSearch(d.checked)}
+                        checked={isolatedSearch}
+                        withPopup={allowPopup}
+                        popupHeader='Info'
+                        popupText={isolatedSearchInfo}
+                    />
+                </div>
             </div>
         </div>
     )

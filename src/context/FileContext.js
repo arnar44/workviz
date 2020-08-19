@@ -53,6 +53,7 @@ const FileProvider = props => {
     const [ showAllInTable, setShowAllInTable ] = useState(false);
     const [ allowPopup, setAllowPopup ] = useState(false);
     const [ courseHighlighting, setCourseHighlighting ] = useState(true);
+    const [ isolatedSearch, setIsolatedSearch ] = useState(false);
 
     const [ taskAlloFilter, setTaskAlloFilter ] = useState(false);
     const [ teacherAlloFilter, setTeacherAlloFilter ] = useState(false);
@@ -421,7 +422,9 @@ const FileProvider = props => {
             grayCourseFilter,
             setGrayCourseFilter,
             courseHighlighting,
-            setCourseHighlighting
+            setCourseHighlighting,
+            isolatedSearch,
+            setIsolatedSearch
             }}
         >
             {props.children}

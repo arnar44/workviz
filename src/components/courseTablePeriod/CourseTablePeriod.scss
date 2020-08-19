@@ -39,6 +39,10 @@
             //background-color: $color-button;
         }
     }
+
+    &__course:focus {
+        outline: 0;
+    }
 }
 
 .focus {

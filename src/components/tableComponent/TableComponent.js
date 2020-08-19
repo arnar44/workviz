@@ -13,6 +13,8 @@ function TableComponent(props) {
         nameSetter,
         onClickHandler,
         selected,
+        selectedC,
+        isIso,
         showAll,
         allowPopup,
         mouseEnterHandler,
@@ -97,10 +99,13 @@ function TableComponent(props) {
                             let selectedCN = 'teacher-table__body--col';
                             let selectedName = obj.name;
 
-                            if (showAll && selected.includes(obj.name)) {
-                                selectedCN += ' selected';
-                                selectedName += ' *';
-                            } 
+                            if(showAll) {
+                                const check = selected.includes(obj.name) || (!isIso && obj.courses.some( c => selectedC.includes(c)))
+                                if(check) {
+                                    selectedCN += ' selected';
+                                    selectedName += ' *'; 
+                                }
+                            }
 
                             return (
                                 <tr 

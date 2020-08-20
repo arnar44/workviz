@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 
 import './OverviewControls.scss';
 import { FileContext } from '../../context/FileContext';
+import { StateContext } from '../../context/StateContext';
 import Toggler from '../toggler/Toggler';
 import MultiSearch from '../multiSearch/MultiSearch';
 
@@ -14,10 +15,9 @@ function OverviewControls(props) {
             teacherSearchHandler,
             courseSearchHandler,
             onIncludeTempToggle,
-            allowPopup,
-            isolatedSearch,
-            setIsolatedSearch
     } = useContext(FileContext);
+
+    const { allowPopup, isolatedSearch, setIsolatedSearch } = useContext(StateContext);
 
     // Creates options for MultiSearch - Teachers
     const getTeacherSearchProps = (teachers) => {

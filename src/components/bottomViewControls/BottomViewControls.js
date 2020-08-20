@@ -4,19 +4,18 @@ import './BottomViewControls.scss';
 import CButton from '../cButton/CButton';
 import Toggler from '../toggler/Toggler';
 import styles from '../../StyleConfig.scss';
-import { FileContext } from '../../context/FileContext';
+import { StateContext } from '../../context/StateContext';
 
 function BottomViewControls(props) {
 
     const { taskFilterHandler, teacherFilterHandler, grayFilterHandler } = props;
-    const { 
-        taskAlloFilter, 
-        teacherAlloFilter, 
-        grayCourseFilter,
-        courseHighlighting,
-        setCourseHighlighting,
-        allowPopup
-    } = useContext(FileContext);
+    const { allowPopup, 
+            courseHighlighting,
+            setCourseHighlighting,
+            taskAlloFilter,
+            teacherAlloFilter,
+            grayCourseFilter 
+        } = useContext(StateContext);
 
     const togglerHandler = (e,d) => {
         setCourseHighlighting(d.checked);

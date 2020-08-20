@@ -3,11 +3,13 @@ import React, { useContext, useState } from 'react';
 import './CourseOverView.scss';
 import CourseTablePeriod from '../courseTablePeriod/CourseTablePeriod';
 import { FileContext } from '../../context/FileContext';
+import { StateContext } from '../../context/StateContext';
 
 function CourseOverView(props) {
 
     const [ localCourseHover, setLocalCourseHover ] = useState(null);
-    const { courseTableData, setCourseHover } = useContext(FileContext);
+    const { courseTableData } = useContext(FileContext);
+    const { setCourseHover } = useContext(StateContext);
 
     let timer = null;
 

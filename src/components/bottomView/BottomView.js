@@ -3,11 +3,11 @@ import React, { useContext } from 'react';
 import './BottomView.scss';
 import CourseOverView from '../courseOverView/CourseOverView';
 import BottomViewControls from '../bottomViewControls/BottomViewControls';
-import { FileContext } from '../../context/FileContext';
+import { StateContext } from '../../context/StateContext';
 
 function BottomView(props) {
 
-    const { setTaskAlloFilter, setTeacherAlloFilter, setGrayCourseFilter } = useContext(FileContext);
+    const { setTaskAlloFilter, setTeacherAlloFilter, setGrayCourseFilter } = useContext(StateContext);
 
     const taskFilterHandler = () => {
         setTaskAlloFilter( prev => !prev);
@@ -27,13 +27,6 @@ function BottomView(props) {
         setTeacherAlloFilter(false);
     }
 
-
-    /*
-        First take:
-            1) Courses -> Overview
-            2) Detail view
-                i. Tabs -> color or symbol indicates if teachers or courses 
-    */
     return (
         <div className='BottomView'>
             <BottomViewControls 

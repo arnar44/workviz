@@ -6,27 +6,22 @@ const FileContext = React.createContext();
 
 const FileProvider = props => {
     // FileContext
+    const [ loadedTeacherData, setLoadedTeacherData ] = useState(null);
+    const [ loadedCourseData, setLoadedCourseData ] = useState(null);
     const [ teacherData, setTeacherData ] = useState(null);
     const [ courseData, setCourseData ] = useState(null);
     const [ loading, setLoading ] = useState(true);
     const [ error, setError ] = useState(false);
-    // DataContext
+
+    // DataContext -> Set After Files are loaded
     const [ courseTableData, setCourseTableData ] = useState(null);
     const [ courseSessionData, setCourseSessionData ] = useState(null);
-
     const [ sessionTOData, setSessionTOData ] = useState(null);
     const [ sessionTODataBoth, setSessionTODataBoth ] = useState(null);
     const [ barchartData, setBarchartData ] = useState(null);
     const [ barchartDataBoth, setBarchartDataBoth ] = useState(null);
-    // SearchContext - Overview search
-    const [ selectedTeachers, setSelectedTeachers ] = useState([]);
-    const [ selectedCourses, setSelectedCourses ] = useState([]);
-    // HoverContext 
-    const [ teacherHover, setTeacherHover ] = useState(null);
-    const [ courseHover, setCourseHover ] = useState(null);
 
-    // FilterContext
-    const [ variableOnDisplay, setVariableOnDisplay ] = useState('Balance');
+    // Teacher table setting context -> Set depending on the state Data
     const [ removedVariables, setRemovedVariables ] = useState([]);
     const [ removedPositions, setRemovedPositions ] = useState([]);
     const [ removedDepartments, setRemovedDepartments ] = useState([]);
@@ -48,16 +43,14 @@ const FileProvider = props => {
     const [ eoyBalanceMinMax, setEoyBalanceMinMax ] = useState([]);
     const [ eoyBalanceMinMaxSet, setEoyBalanceMinMaxSet ] = useState([]);
     const [ colorByLine, setColorByLine ] = useState(false);
+
+    // SearchContext - Overview search
+    const [ selectedTeachers, setSelectedTeachers ] = useState([]);
+    const [ selectedCourses, setSelectedCourses ] = useState([]);
+
+    // Variables, when changed, change the local Data
+    const [ variableOnDisplay, setVariableOnDisplay ] = useState('Balance');
     const [ tmpDataIncluded, setTmpDataIncluded ] = useState(false);
-
-    const [ showAllInTable, setShowAllInTable ] = useState(false);
-    const [ allowPopup, setAllowPopup ] = useState(false);
-    const [ courseHighlighting, setCourseHighlighting ] = useState(true);
-    const [ isolatedSearch, setIsolatedSearch ] = useState(false);
-
-    const [ taskAlloFilter, setTaskAlloFilter ] = useState(false);
-    const [ teacherAlloFilter, setTeacherAlloFilter ] = useState(false);
-    const [ grayCourseFilter, setGrayCourseFilter ] = useState(false);
 
     // Max values that can be selected in the Multi search (teacher+courses)
     const MAX_SEARCH_SELECTION = 5;
@@ -126,7 +119,6 @@ const FileProvider = props => {
             });
         }
     }
-
 
     const filterTemp = (data) => {
         const tempTeachers = [
@@ -307,7 +299,45 @@ const FileProvider = props => {
 
     }
 
+    const applyToLocalData = (teachers, courses) => {
+        const filteredTeachers = filterTemp(teachers);
+                        
+        // Barchart Data - Teachers
+        const barchartDataFiltered = getBarchartData(filteredTeachers);
+        setBarchartData(barchartDataFiltered);
+        setBarchartDataBoth([barchartDataFiltered, getBarchartData(teachers)]);
 
+        // Teacher Overview Data (Table) - Teachers
+        const sessionDataFiltered = getTeacherSessionData(filteredTeachers);
+        const sessionDataUF = getTeacherSessionData(teachers);
+        setSessionTOData(sessionDataFiltered);
+        setSessionTODataBoth([sessionDataFiltered, sessionDataUF]);
+
+        // Course Overview Data - Courses
+        setCourseSessionData(courses);
+        setCourseTableData(setCourseOverviewData(courses));
+
+        // Get and set Min/Max values for Range slider data filtering (Table Settings)
+        setMinMax(sessionDataUF, 'kontering', setKonteringMinMax, setKonteringMinMaxSet);
+        setMinMax(sessionDataUF, 'bemannad', setBemannadMinMax, setBemannadMinMaxSet);
+        setMinMax(sessionDataUF, 'ht', setHtMinMax, setHtMinMaxSet);
+        setMinMax(sessionDataUF, 'vt', setVtMinMax, setVtMinMaxSet);
+        setMinMax(sessionDataUF, 'selfDev', setSelfDevMinMax, setSelfDevMinMaxSet);
+        setMinMax(sessionDataUF, 'balance', setBalanceMinMax, setBalanceMinMaxSet);
+        setMinMax(sessionDataUF, 'boyBalance', setBoyBalanceMinMax, setBoyBalanceMinMaxSet);
+        setMinMax(sessionDataUF, 'boyBalance', setEoyBalanceMinMax, setEoyBalanceMinMaxSet);
+    }
+    
+    // When top local data is changed, apply changes to all local data 
+    useEffect(() => {
+        if(!loading) {
+            console.log('Changes Applied');
+            applyToLocalData(teacherData, courseData);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [courseData, teacherData]);
+    
+    // When loading finishes, set all local Data
     useEffect(() => {
         if (loading) {
             firebase.database().ref('/')
@@ -315,36 +345,11 @@ const FileProvider = props => {
                     snapshot => {
                         const { data1920 } = snapshot.val();
                         const { courses, teachers } = data1920;
+                        setLoadedTeacherData(teachers);
+                        setLoadedCourseData(courses);
                         setTeacherData(teachers);
                         setCourseData(courses);
-
-                        const filteredTeachers = filterTemp(teachers);
-                        
-                        // Barchart Data - Teachers
-                        const barchartDataFiltered = getBarchartData(filteredTeachers);
-                        setBarchartData(barchartDataFiltered);
-                        setBarchartDataBoth([barchartDataFiltered, getBarchartData(teachers)]);
-
-                        // Teacher Overview Data (Table) - Teachers
-                        const sessionDataFiltered = getTeacherSessionData(filteredTeachers);
-                        const sessionDataUF = getTeacherSessionData(teachers);
-                        setSessionTOData(sessionDataFiltered);
-                        setSessionTODataBoth([sessionDataFiltered, sessionDataUF]);
-
-                        // Course Overview Data - Courses
-                        setCourseSessionData(courses);
-                        setCourseTableData(setCourseOverviewData(courses));
-
-                        // Get and set Min/Max values for Range slider data filtering (Table Settings)
-                        setMinMax(sessionDataUF, 'kontering', setKonteringMinMax, setKonteringMinMaxSet);
-                        setMinMax(sessionDataUF, 'bemannad', setBemannadMinMax, setBemannadMinMaxSet);
-                        setMinMax(sessionDataUF, 'ht', setHtMinMax, setHtMinMaxSet);
-                        setMinMax(sessionDataUF, 'vt', setVtMinMax, setVtMinMaxSet);
-                        setMinMax(sessionDataUF, 'selfDev', setSelfDevMinMax, setSelfDevMinMaxSet);
-                        setMinMax(sessionDataUF, 'balance', setBalanceMinMax, setBalanceMinMaxSet);
-                        setMinMax(sessionDataUF, 'boyBalance', setBoyBalanceMinMax, setBoyBalanceMinMaxSet);
-                        setMinMax(sessionDataUF, 'boyBalance', setEoyBalanceMinMax, setEoyBalanceMinMaxSet);
-
+                        applyToLocalData(teachers, courses);
                         setLoading(false);
                     },
                     errorObj => {
@@ -421,23 +426,6 @@ const FileProvider = props => {
             courseSessionData,
             teacherClickedHandler,
             courseClickedHandler,
-            teacherHover,
-            setTeacherHover,
-            courseHover,
-            setCourseHover,
-            showAllInTable,
-            setShowAllInTable,
-            allowPopup,
-            teacherAlloFilter,
-            setTeacherAlloFilter,
-            taskAlloFilter,
-            setTaskAlloFilter,
-            grayCourseFilter,
-            setGrayCourseFilter,
-            courseHighlighting,
-            setCourseHighlighting,
-            isolatedSearch,
-            setIsolatedSearch
             }}
         >
             {props.children}

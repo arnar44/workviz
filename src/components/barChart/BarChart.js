@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import * as d3 from 'd3';
 import { FileContext } from '../../context/FileContext';
+import { StateContext } from '../../context/StateContext';
 
 import './BarChart.scss';
 
@@ -65,7 +66,8 @@ function BarChart(props) {
     } = props.chartProps;
 
     const { data, parentRef, value } = props;
-    const { selectedTeachers, courseHover, selectedCourses, isolatedSearch } = useContext(FileContext);
+    const { selectedTeachers, selectedCourses } = useContext(FileContext);
+    const { courseHover, isolatedSearch } = useContext(StateContext);
 
 
     const [height, setHeight] = useState(0);

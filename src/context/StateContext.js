@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from '../StyleConfig.scss';
 
 const StateContext = React.createContext({});
 
@@ -19,6 +20,28 @@ const StateProvider = ({children}) => {
     const [ teacherAlloFilter, setTeacherAlloFilter ] = useState(false);
     const [ grayCourseFilter, setGrayCourseFilter ] = useState(false);
 
+    // View on display context
+    // const ... detailview
+    const [ teacherIsTopView, setTeacherIsTopView ] = useState(true);
+
+    // Create Props for "Switch Overview Positions" Buttons
+    const overviewSwitcherButtonProps = {
+        handler: () => setTeacherIsTopView(prev => !prev),
+        style: [
+            {
+                border: `1px solid ${styles.grayColor}`,
+                backgroundColor: 'white',
+                color: styles.grayColor
+            },
+            {
+                border: `1px solid ${styles.grayColor}`,
+                backgroundColor: styles.grayColor,
+                color: 'white'
+            }
+        ],
+        text: '\u2193\u2191 Switch Views',
+        styleNum: false
+    }
 
     return (
         <StateContext.Provider value={{
@@ -38,7 +61,9 @@ const StateProvider = ({children}) => {
             teacherAlloFilter,
             setTeacherAlloFilter,
             grayCourseFilter,
-            setGrayCourseFilter
+            setGrayCourseFilter,
+            teacherIsTopView,
+            overviewSwitcherButtonProps,
         }}>
             {children}
         </StateContext.Provider>

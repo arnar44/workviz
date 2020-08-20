@@ -1,7 +1,8 @@
 @import '../../StyleConfig.scss';
 
 .table-wrapper {
-    height: calc(100% - 35px);
+    height: 87%;
+    //height: calc(100% - 35px);
     width: 100%;
     padding: 0 $gutter;
     margin-top: $gutter/2;

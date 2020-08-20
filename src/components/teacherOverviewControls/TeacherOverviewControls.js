@@ -4,6 +4,7 @@ import './TeacherOverviewControls.scss';
 import Selection from '../selection/Selection';
 import TeacherOverviewTableSettings from '../teacherOverviewTableSettings/TeacherOverviewTableSettings';
 import Toggler from '../toggler/Toggler';
+import CButton from '../cButton/CButton';
 import { StateContext } from '../../context/StateContext';
 
 function TeacherOverviewControls(props) {
@@ -13,7 +14,11 @@ function TeacherOverviewControls(props) {
         variableSwitchProps 
     } = props;
 
-    const { showAllInTable, setShowAllInTable, allowPopup } = useContext(StateContext);
+    const { showAllInTable, 
+            setShowAllInTable, 
+            allowPopup,
+            overviewSwitcherButtonProps
+        } = useContext(StateContext);
 
     const toggleHandler = (e,d) => setShowAllInTable(d.checked);
 
@@ -48,6 +53,14 @@ function TeacherOverviewControls(props) {
                     />                    
                 </div>
             }
+            <div className='topview-Controls__last'>
+                <CButton 
+                    handler={overviewSwitcherButtonProps.handler}
+                    text={overviewSwitcherButtonProps.text}
+                    style={overviewSwitcherButtonProps.style}
+                    styleNum={overviewSwitcherButtonProps.styleNum}
+                />                   
+            </div>
         </div>    
            
     )

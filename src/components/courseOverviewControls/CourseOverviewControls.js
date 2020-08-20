@@ -14,7 +14,8 @@ function CourseOverviewControls(props) {
             setCourseHighlighting,
             taskAlloFilter,
             teacherAlloFilter,
-            grayCourseFilter 
+            grayCourseFilter ,
+            overviewSwitcherButtonProps
         } = useContext(StateContext);
 
     const togglerHandler = (e,d) => {
@@ -75,6 +76,14 @@ function CourseOverviewControls(props) {
                     popupHeader='Info'
                     popupText={togglerPopupInfo}
                 />
+            </div>
+            <div className='bottomView-Controls__last'>
+                <CButton 
+                    handler={overviewSwitcherButtonProps.handler}
+                    text={overviewSwitcherButtonProps.text}
+                    style={overviewSwitcherButtonProps.style}
+                    styleNum={overviewSwitcherButtonProps.styleNum}
+                />                   
             </div>
         </div>    
            

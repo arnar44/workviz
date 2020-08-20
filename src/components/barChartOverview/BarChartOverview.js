@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 
 import { FileContext } from '../../context/FileContext';
+import { StateContext } from '../../context/StateContext';
 import BarChart from '../barChart/BarChart';
 
 function BarChartOverview(props) {
@@ -11,14 +12,8 @@ function BarChartOverview(props) {
         data       
     } = props;
 
-    const { 
-        selectedTeachers,
-        setTeacherHover,
-        teacherClickedHandler,
-        courseHover,
-        isolatedSearch,
-        selectedCourses,
-    } = useContext(FileContext);
+    const { selectedTeachers, teacherClickedHandler, selectedCourses } = useContext(FileContext);
+    const { setTeacherHover, courseHover, isolatedSearch } = useContext(StateContext);
     
     const getChartProps = () => {
 

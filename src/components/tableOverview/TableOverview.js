@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
 import { FileContext } from '../../context/FileContext';
+import { StateContext } from '../../context/StateContext';
 import TableComponent from '../tableComponent/TableComponent';
 
 function TableOverview(props) {
@@ -9,7 +10,6 @@ function TableOverview(props) {
         sessionTOData,
         selectedTeachers,
         selectedCourses,
-        isolatedSearch,
         colorCodeControl,
         removedVariables,
         removedPositions,
@@ -31,12 +31,10 @@ function TableOverview(props) {
         eoyBalanceMinMaxSet,
         eoyBalanceMinMax,
         colorByLine,
-        showAllInTable,
         teacherClickedHandler,
-        allowPopup,
-        setTeacherHover,
-        courseHover
     } = useContext(FileContext);
+
+    const { setTeacherHover, courseHover, showAllInTable, allowPopup, isolatedSearch } = useContext(StateContext);
 
     const [ data, setData ] = useState(sessionTOData);
     const [ hoverData, setHoverData ] = useState(null);

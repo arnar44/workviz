@@ -5,6 +5,7 @@ import Selection from '../selection/Selection';
 import TableSettings from '../tableSettings/TableSettings';
 import Toggler from '../toggler/Toggler';
 import { FileContext } from '../../context/FileContext';
+import { StateContext } from '../../context/StateContext';
 
 function TopViewControls(props) {
     const {
@@ -13,13 +14,8 @@ function TopViewControls(props) {
         variableSwitchProps 
     } = props;
 
-    const { 
-        selectedTeachers,
-        selectedCourses,
-        showAllInTable,
-        setShowAllInTable,
-        allowPopup
-    } = useContext(FileContext);
+    const { selectedTeachers, selectedCourses } = useContext(FileContext);
+    const { showAllInTable, setShowAllInTable, allowPopup } = useContext(StateContext);
 
     const [ togglerDisabled, setTogglerDisabled ] = useState(true);
 

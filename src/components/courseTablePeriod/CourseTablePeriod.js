@@ -2,20 +2,23 @@ import React, { useContext } from 'react';
 
 import './CourseTablePeriod.scss';
 import { FileContext } from '../../context/FileContext';
+import { StateContext } from '../../context/StateContext';
 
 function CourseTablePeriod(props) {
     const { courses, meHandler, mlHandler, localHover } = props;
 
     const { selectedCourses,
             selectedTeachers,
+            courseClickedHandler
+        } = useContext(FileContext);
+
+    const { teacherHover,
+            courseHighlighting,
             isolatedSearch,
             taskAlloFilter,
             teacherAlloFilter,
-            teacherHover,
-            grayCourseFilter,
-            courseHighlighting,
-            courseClickedHandler
-        } = useContext(FileContext);
+            grayCourseFilter
+        } = useContext(StateContext);
 
     const getFocus = (course, teachers) => {
         // When "highlighting" is disabled return

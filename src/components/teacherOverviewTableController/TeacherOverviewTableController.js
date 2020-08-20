@@ -3,9 +3,9 @@ import * as d3 from 'd3';
 
 import { FileContext } from '../../context/FileContext';
 import { StateContext } from '../../context/StateContext';
-import TableComponent from '../tableComponent/TableComponent';
+import TeacherOverviewTable from '../teacherOverviewTable/TeacherOverviewTable';
 
-function TableOverview(props) {
+function TeacherOverviewTableController() {
     const { 
         sessionTOData,
         selectedTeachers,
@@ -232,7 +232,7 @@ function TableOverview(props) {
 
     return (
         <Fragment>
-            <TableComponent
+            <TeacherOverviewTable
                 headers={headers}
                 data={ hoverData === null ? data : hoverData}
                 colorCodeControl={colorCodeControl}
@@ -252,4 +252,4 @@ function TableOverview(props) {
     )
 }
 
-export default TableOverview;
+export default TeacherOverviewTableController;

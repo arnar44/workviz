@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 
-import './CourseTablePeriod.scss';
+import './CourseOverviewTableRow.scss';
 import { FileContext } from '../../context/FileContext';
 import { StateContext } from '../../context/StateContext';
 
-function CourseTablePeriod(props) {
-    const { courses, meHandler, mlHandler, localHover } = props;
+function CourseOverviewTableRow(props) {
+    const { meHandler, mlHandler, localHover, row } = props;
 
     const { selectedCourses,
             selectedTeachers,
@@ -63,7 +63,6 @@ function CourseTablePeriod(props) {
         const yellowFilter = teacherAlloFilter && color === 'Yellow';
         const grayFilter = grayCourseFilter && color === 'Gray';
 
-
         if(noFilter || redFilter || yellowFilter || grayFilter)
             return (
                 <button 
@@ -79,14 +78,20 @@ function CourseTablePeriod(props) {
     }
    
     return (
-        <td className='courseTablePeriod'>
-            {courses.map( course => {
-                const focus = getFocus(course.code, course.teachers);
-                const cName = `courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`
-                return filterCourses(course.color, course.code, cName, course.teachers); 
+        <tr>
+            {row.map( column => {
+                return (
+                    <td className='courseTablePeriod'>
+                        {column.map( course => {
+                            const focus = getFocus(course.code, course.teachers);
+                            const cName = `courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`
+                            return filterCourses(course.color, course.code, cName, course.teachers); 
+                        })}
+                    </td>
+                )
             })}
-        </td>
+        </tr>
     )
 }
 
-export default CourseTablePeriod;
+export default CourseOverviewTableRow;

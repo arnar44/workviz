@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Popup, Header } from 'semantic-ui-react';
-import './TableComponent.scss';
+import './TeacherOverviewTable.scss';
 
-function TableComponent(props) {
+function TeacherOverviewTable(props) {
     const { 
         headers,
         data,
@@ -162,4 +162,4 @@ function TableComponent(props) {
     )
 }
 
-export default TableComponent;
+export default TeacherOverviewTable;

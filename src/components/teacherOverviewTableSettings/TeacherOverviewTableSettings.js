@@ -1,15 +1,13 @@
 import React, { useContext } from 'react';
 
-import './TableSettings.scss';
+import './TeacherOverviewTableSettings.scss';
 import { Modal, Button } from 'semantic-ui-react';
 import { FileContext } from '../../context/FileContext';
 import MultiSearch from '../multiSearch/MultiSearch';
 import RangeSlider from '../rangeSlider/RangeSlider';
 import Toggler from '../toggler/Toggler';
 
-
-
-function TableSettings(props) {
+function TeacherOverviewTableSettings() {
 
     const { 
         colorCodeControl,
@@ -157,8 +155,6 @@ function TableSettings(props) {
     });
 
     const colorByLineToggleHandler = (e,d) => setColorByLine(d.checked);
-
-
     
     return (
         <Modal trigger={<Button>Table Settings</Button>}>
@@ -291,4 +287,4 @@ function TableSettings(props) {
     )
 }
 
-export default TableSettings;
+export default TeacherOverviewTableSettings;

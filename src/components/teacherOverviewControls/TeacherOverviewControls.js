@@ -1,39 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 
-import './TopViewControls.scss';
+import './TeacherOverviewControls.scss';
 import Selection from '../selection/Selection';
-import TableSettings from '../tableSettings/TableSettings';
+import TeacherOverviewTableSettings from '../teacherOverviewTableSettings/TeacherOverviewTableSettings';
 import Toggler from '../toggler/Toggler';
-import { FileContext } from '../../context/FileContext';
 import { StateContext } from '../../context/StateContext';
 
-function TopViewControls(props) {
+function TeacherOverviewControls(props) {
     const {
         view,
         viewSwitchProps,
         variableSwitchProps 
     } = props;
 
-    const { selectedTeachers, selectedCourses } = useContext(FileContext);
     const { showAllInTable, setShowAllInTable, allowPopup } = useContext(StateContext);
 
-    const [ togglerDisabled, setTogglerDisabled ] = useState(true);
+    const toggleHandler = (e,d) => setShowAllInTable(d.checked);
 
-    const toggleHandler = (e,d) => {
-        if(!togglerDisabled)
-            setShowAllInTable(d.checked);
-    }; 
-
-    useEffect(() => {   
-        if(selectedCourses.length > 0 || selectedTeachers.length > 0)
-            setTogglerDisabled(false);
-        else
-            setTogglerDisabled(true);
-    }, [selectedCourses, selectedTeachers])
 
     const showAllInfo = ['Allows user to switch between showing all/selected teachers in table.',
-                        'If "Show All" is enabled, selected teachers are highlighted in table.',
-                        'Setting can only be toggled if a teacher is selected.']
+                        'If "Show All" is enabled, selected teachers are highlighted in table.']
     
     return (
         <div className='topview-Controls'>
@@ -47,7 +33,7 @@ function TopViewControls(props) {
             }
             { view === 'Table' &&
                 <div className='topview-Controls__val'>
-                    <TableSettings />
+                    <TeacherOverviewTableSettings />
                 </div>
             }
             { view === 'Table' &&
@@ -56,7 +42,6 @@ function TopViewControls(props) {
                         label='Show All' 
                         handler={toggleHandler}
                         checked={showAllInTable}
-                        disabled={togglerDisabled}
                         withPopup={allowPopup}
                         popupHeader='Info'
                         popupText={showAllInfo}
@@ -68,4 +53,4 @@ function TopViewControls(props) {
     )
 }
 
-export default TopViewControls;
+export default TeacherOverviewControls;

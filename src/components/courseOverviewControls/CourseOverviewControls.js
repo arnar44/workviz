@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 
-import './BottomViewControls.scss';
+import './CourseOverviewControls.scss';
 import CButton from '../cButton/CButton';
 import Toggler from '../toggler/Toggler';
 import styles from '../../StyleConfig.scss';
 import { StateContext } from '../../context/StateContext';
 
-function BottomViewControls(props) {
+function CourseOverviewControls(props) {
 
     const { taskFilterHandler, teacherFilterHandler, grayFilterHandler } = props;
     const { allowPopup, 
@@ -81,4 +81,4 @@ function BottomViewControls(props) {
     )
 }
 
-export default BottomViewControls;
+export default CourseOverviewControls;

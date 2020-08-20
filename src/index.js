@@ -6,12 +6,15 @@ import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { FileProvider } from './context/FileContext';
+import { StateProvider } from './context/StateContext';
 
 ReactDOM.render(
   <FileProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <StateProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StateProvider>
   </FileProvider>,
   document.getElementById('root')
 );

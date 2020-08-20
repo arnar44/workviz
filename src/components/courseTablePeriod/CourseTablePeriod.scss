@@ -3,6 +3,10 @@
 
 .courseTablePeriod {
 
+    padding-bottom: $gutter/2;
+    vertical-align: top;
+
+
     &__course {
 
         background-color: $color-neutral;
@@ -14,11 +18,13 @@
         margin: 0 3px 3px 0;
         border-style: solid;
         border-radius: 5px;
-        -webkit-transition: opacity 0.3s ease-in-out;
-        -moz-transition: opacity 0.3s ease-in-out;
-        -ms-transition: opacity 0.3s ease-in-out;
-        -o-transition: opacity 0.3s ease-in-out;
-        transition: opacity 0.3s ease-in-out;        
+        -webkit-transition: opacity 0.25s ease-in-out;
+        -moz-transition: opacity 0.25s ease-in-out;
+        -ms-transition: opacity 0.25s ease-in-out;
+        -o-transition: opacity 0.25s ease-in-out;
+        transition: opacity 0.25s ease-in-out;  
+        
+        cursor: pointer;
 
         &--Red {
             background-color: $color-red;
@@ -31,8 +37,11 @@
         }
         &--Gray {
             //background-color: $color-button;
-
         }
+    }
+
+    &__course:focus {
+        outline: 0;
     }
 }
 

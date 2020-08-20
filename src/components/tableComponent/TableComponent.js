@@ -13,8 +13,12 @@ function TableComponent(props) {
         nameSetter,
         onClickHandler,
         selected,
+        selectedC,
+        isIso,
         showAll,
-        allowPopup
+        allowPopup,
+        mouseEnterHandler,
+        mouseLeaveHandler
     } = props;
 
     const getColor = (val, col) => {
@@ -42,21 +46,20 @@ function TableComponent(props) {
         return (
             <tr className='teacher-table__head teacher-table__head--row'>
                 {   
-                    headers.map( headerObj => {
-                        if(removedVariables.includes(headerObj.label))
-                            return
-
-                        return (
-                            <th 
-                                className='teacher-table__head--col'
-                                onClick={headerObj.handler}
-                                key={headerObj.label}
-                                id={headerObj.value}
-                                >
-                                {nameSetter(headerObj.label, headerObj.value)}
-                            </th>
-                        )
-                    })
+                    headers
+                        .filter( hObj => !removedVariables.includes(hObj.label))
+                        .map( headerObj => { 
+                            return (
+                                <th 
+                                    className='teacher-table__head--col'
+                                    onClick={headerObj.handler}
+                                    key={headerObj.label}
+                                    id={headerObj.value}
+                                    >
+                                    {nameSetter(headerObj.label, headerObj.value)}
+                                </th>
+                            )
+                        })
                 }
             </tr>
         )
@@ -96,16 +99,21 @@ function TableComponent(props) {
                             let selectedCN = 'teacher-table__body--col';
                             let selectedName = obj.name;
 
-                            if (showAll && selected.includes(obj.name)) {
-                                selectedCN += ' selected';
-                                selectedName += ' *';
-                            } 
+                            if(showAll) {
+                                const check = selected.includes(obj.name) || (!isIso && obj.courses.some( c => selectedC.includes(c)))
+                                if(check) {
+                                    selectedCN += ' selected';
+                                    selectedName += ' *'; 
+                                }
+                            }
 
                             return (
                                 <tr 
                                     className={`teacher-table__body--row ${getRowColor(obj['balance'])}`}
                                     key={obj.name}
                                     onClick={() => onClickHandler(obj)}
+                                    onMouseEnter={ () => mouseEnterHandler(obj.courses)}
+                                    onMouseLeave={ () => mouseLeaveHandler()}
                                 >
                                     { !removedVariables.includes('Name') && 
                                         <td className={selectedCN}>{selectedName}</td>

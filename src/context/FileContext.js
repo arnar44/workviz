@@ -49,8 +49,12 @@ const FileProvider = props => {
     const [ eoyBalanceMinMaxSet, setEoyBalanceMinMaxSet ] = useState([]);
     const [ colorByLine, setColorByLine ] = useState(false);
     const [ tmpDataIncluded, setTmpDataIncluded ] = useState(false);
+
     const [ showAllInTable, setShowAllInTable ] = useState(false);
     const [ allowPopup, setAllowPopup ] = useState(false);
+    const [ courseHighlighting, setCourseHighlighting ] = useState(true);
+    const [ isolatedSearch, setIsolatedSearch ] = useState(false);
+
     const [ taskAlloFilter, setTaskAlloFilter ] = useState(false);
     const [ teacherAlloFilter, setTeacherAlloFilter ] = useState(false);
     const [ grayCourseFilter, setGrayCourseFilter ] = useState(false);
@@ -107,7 +111,19 @@ const FileProvider = props => {
                 
                 return prev;
             });
+        }
+    }
 
+    const courseClickedHandler = (code) => {
+        if(selectedCourses.length === MAX_SEARCH_SELECTION)
+            window.alert(`Max ${MAX_SEARCH_SELECTION} can be selected`);
+        else {
+            setSelectedCourses(prev => {
+                if(!prev.includes(code))
+                    return prev.concat(code)
+                
+                return prev;
+            });
         }
     }
 
@@ -133,13 +149,15 @@ const FileProvider = props => {
     const getBarchartData = (teacherData) => {
         return Object.entries(teacherData)
             .map(p => {
+                const courses = p[1]['Course Hours Totals'] ? Object.keys(p[1]['Course Hours Totals']) : [];
                 return {
                     'name': p[0],
                     'Balance': p[1]['Balance (%)'],
                     'BOY Balance': p[1]['BOY Balance'],
                     'EOY Balance': p[1]['EOY Balance'],
                     'dep': p[1]['Department'],
-                    'pos': p[1]['Position']
+                    'pos': p[1]['Position'],
+                    'courses': courses
                 }
             })
             .sort( (a,b) => d3.descending(a['Balance'], b['Balance']));
@@ -162,6 +180,7 @@ const FileProvider = props => {
                             balance: t[1]['Balance (%)'],
                             boyBalance: t[1]['BOY Balance'],
                             eoyBalance: t[1]['EOY Balance'],
+                            courses: t[1]['Course Hours Totals'] ? Object.keys(t[1]['Course Hours Totals']) : []
                         }
                     })
     }
@@ -251,6 +270,7 @@ const FileProvider = props => {
                 code: c[0],
                 shortName: c[1]['Short Name'],
                 color: getCourseColor(c[1]),
+                teachers: Object.keys(c[1]['Teachers'])
             };
 
             // Group periods
@@ -400,7 +420,11 @@ const FileProvider = props => {
             courseTableData,
             courseSessionData,
             teacherClickedHandler,
+            courseClickedHandler,
+            teacherHover,
             setTeacherHover,
+            courseHover,
+            setCourseHover,
             showAllInTable,
             setShowAllInTable,
             allowPopup,
@@ -410,6 +434,10 @@ const FileProvider = props => {
             setTaskAlloFilter,
             grayCourseFilter,
             setGrayCourseFilter,
+            courseHighlighting,
+            setCourseHighlighting,
+            isolatedSearch,
+            setIsolatedSearch
             }}
         >
             {props.children}

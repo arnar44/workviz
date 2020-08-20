@@ -8,6 +8,8 @@ function TableOverview(props) {
     const { 
         sessionTOData,
         selectedTeachers,
+        selectedCourses,
+        isolatedSearch,
         colorCodeControl,
         removedVariables,
         removedPositions,
@@ -31,10 +33,13 @@ function TableOverview(props) {
         colorByLine,
         showAllInTable,
         teacherClickedHandler,
-        allowPopup
+        allowPopup,
+        setTeacherHover,
+        courseHover
     } = useContext(FileContext);
 
     const [ data, setData ] = useState(sessionTOData);
+    const [ hoverData, setHoverData ] = useState(null);
     const [ orderCol, setOrderCol ] = useState(['none', false]);
 
     const onHeaderClickHandler = (e) => {
@@ -163,12 +168,32 @@ function TableOverview(props) {
         return hText;
     }
 
+    // Handles course hover
+    useEffect(() => {
+        if(courseHover)
+            setHoverData(sessionTOData.filter( tObj => courseHover.includes(tObj.name))); 
+        else
+            setHoverData(null);
+    }, [courseHover, sessionTOData]);
+
+    // Handles filters and Selection (in top view)
     useEffect(() => {
         let tmpData = sessionTOData;
 
-        // Filter data on selected teachers
-        if(!showAllInTable && selectedTeachers.length !== 0) {
-            tmpData = sessionTOData.filter( teacherObj => selectedTeachers.includes(teacherObj.name));
+        // Filter data on selected teachers (and selected courses)
+        if(!showAllInTable) {
+            // Filter on only selected teachers
+            const check = isolatedSearch || (!isolatedSearch && selectedCourses.length === 0);
+            if( selectedTeachers.length !== 0 && check)
+                tmpData = sessionTOData.filter( teacherObj => selectedTeachers.includes(teacherObj.name));
+            
+            // Filter on only selected courses
+            if ( selectedTeachers.length === 0 && !isolatedSearch && selectedCourses.length !== 0)
+                tmpData = sessionTOData.filter( teacherObj => teacherObj.courses.some( c => selectedCourses.includes(c)));
+                
+            // Filter on both selected teachers/courses
+            if( selectedTeachers.length !== 0 && !isolatedSearch && selectedCourses.length !== 0)
+                tmpData = sessionTOData.filter( teacherObj => teacherObj.courses.some( c => selectedCourses.includes(c)) || selectedTeachers.includes(teacherObj.name) );
         }
 
         // Filter data on removed Positions
@@ -203,15 +228,15 @@ function TableOverview(props) {
         setData(tmpData);
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sessionTOData, selectedTeachers, removedPositions, removedDepartments, 
-        konteringMinMaxSet, bemannadMinMaxSet, htMinMaxSet, vtMinMaxSet,
+    }, [sessionTOData, selectedTeachers, removedPositions, removedDepartments, isolatedSearch,
+        konteringMinMaxSet, bemannadMinMaxSet, htMinMaxSet, vtMinMaxSet, selectedCourses,
         selfDevMinMaxSet, balanceMinMaxSet, boyBalanceMinMaxSet, eoyBalanceMinMaxSet, showAllInTable]);
 
     return (
         <Fragment>
             <TableComponent
                 headers={headers}
-                data={data}
+                data={ hoverData === null ? data : hoverData}
                 colorCodeControl={colorCodeControl}
                 removedVariables={removedVariables}
                 colorByLine={colorByLine}
@@ -219,7 +244,11 @@ function TableOverview(props) {
                 onClickHandler={teacherClickedHandler}
                 showAll={showAllInTable}
                 selected={selectedTeachers}
+                selectedC={selectedCourses}
+                isIso={isolatedSearch}
                 allowPopup={allowPopup}
+                mouseEnterHandler={(c) => setTeacherHover(c) }
+                mouseLeaveHandler={() => setTeacherHover(null) }
             />
         </Fragment>
     )

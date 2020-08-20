@@ -64,8 +64,8 @@ function BarChart(props) {
         checkFocus,
     } = props.chartProps;
 
-    const { data, parentRef, value, cleanup } = props;
-    const { selectedTeachers } = useContext(FileContext);
+    const { data, parentRef, value } = props;
+    const { selectedTeachers, courseHover, selectedCourses, isolatedSearch } = useContext(FileContext);
 
 
     const [height, setHeight] = useState(0);
@@ -126,8 +126,8 @@ function BarChart(props) {
         // Performance var, only fire setters if hover is X long
         let timer = null;
 
-        const bars = g
-            .selectAll('barchart')
+        // Bars
+        g.selectAll('barchart')
             .data(data)
             .join('rect')
             .attr('id', d => `bar${d.name.replace(' ', '')}`)
@@ -145,15 +145,15 @@ function BarChart(props) {
                 onClick(d);
             })
             .on('mouseenter', (d, i, l) => {
-                // Only fire setter (onHover) if hover is > 300 millisek
-                timer = setTimeout( () => onHover(d.name), 300); // TODO: Check if ok when hover extends to courses
+                // Only fire setter (onHover) if hover is > 200 millisek
+                timer = setTimeout( () => onHover(d.courses), 200);
                 addTooltip(svg, height, d.name, value, d[value]);
                 const styleStr = editStyleOnHover(l[i].getAttribute('style'), 1, '2px;');
                 l[i].setAttribute('style', styleStr);
             })
             .on('mouseleave', (d, i, l) => {
                 clearTimeout(timer);
-                cleanup(null);
+                onHover(null);
                 svg.select('.tooltip').remove();
                 const styleStr = editStyleOnHover(l[i].getAttribute('style'), -1, '0px;');
                 l[i].setAttribute('style', styleStr);
@@ -221,7 +221,7 @@ function BarChart(props) {
             };
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [data, height, width, value, selectedTeachers]);
+      }, [data, height, width, value, selectedTeachers, courseHover, selectedCourses, isolatedSearch]);
 
     
     return (

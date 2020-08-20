@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import './CourseOverView.scss';
 import CourseTablePeriod from '../courseTablePeriod/CourseTablePeriod';
@@ -6,7 +6,25 @@ import { FileContext } from '../../context/FileContext';
 
 function CourseOverView(props) {
 
-    const { courseTableData } = useContext(FileContext);
+    const [ localCourseHover, setLocalCourseHover ] = useState(null);
+    const { courseTableData, setCourseHover } = useContext(FileContext);
+
+    let timer = null;
+
+    const timerFunc = (global, local) => {
+        setCourseHover(global);
+        setLocalCourseHover(local);
+    }
+
+    const mouseEnterHandler = (teachers, course) => {
+        clearTimeout(timer);
+        timer = setTimeout( () => timerFunc(teachers, course), 300)
+    }
+
+    const mouseLeaveHandler = () => {
+        clearTimeout(timer);
+        timer = setTimeout( () => timerFunc(null, null), 300)
+    }
 
     return (
         <div className='course-table'>
@@ -21,22 +39,82 @@ function CourseOverView(props) {
                 </thead>
                 <tbody>
                     <tr>
-                        <CourseTablePeriod courses={courseTableData.per1}/>
-                        <CourseTablePeriod courses={courseTableData.per2}/>
-                        <CourseTablePeriod courses={courseTableData.per3}/>
-                        <CourseTablePeriod courses={courseTableData.per4}/>  
+                        <CourseTablePeriod 
+                            courses={courseTableData.per1}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />
+                        <CourseTablePeriod 
+                            courses={courseTableData.per2}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />
+                        <CourseTablePeriod 
+                            courses={courseTableData.per3}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />
+                        <CourseTablePeriod 
+                            courses={courseTableData.per4}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />  
                     </tr>
                     <tr>
-                        <CourseTablePeriod courses={courseTableData.per12}/>  
-                        <CourseTablePeriod courses={courseTableData.per12}/>  
-                        <CourseTablePeriod courses={courseTableData.per34}/>  
-                        <CourseTablePeriod courses={courseTableData.per34}/>  
+                        <CourseTablePeriod 
+                            courses={courseTableData.per12}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />  
+                        <CourseTablePeriod 
+                            courses={courseTableData.per12}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />  
+                        <CourseTablePeriod 
+                            courses={courseTableData.per34}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />  
+                        <CourseTablePeriod 
+                            courses={courseTableData.per34}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />  
                     </tr>
                     <tr>
-                        <CourseTablePeriod courses={courseTableData.per14}/>  
-                        <CourseTablePeriod courses={courseTableData.per14}/>  
-                        <CourseTablePeriod courses={courseTableData.per14}/>  
-                        <CourseTablePeriod courses={courseTableData.per14}/>  
+                        <CourseTablePeriod 
+                            courses={courseTableData.per14}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />  
+                        <CourseTablePeriod 
+                            courses={courseTableData.per14}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />  
+                        <CourseTablePeriod 
+                            courses={courseTableData.per14}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />  
+                        <CourseTablePeriod 
+                            courses={courseTableData.per14}
+                            meHandler={mouseEnterHandler}
+                            mlHandler={mouseLeaveHandler}
+                            localHover={localCourseHover}
+                        />  
                     </tr>
                 </tbody>
             </table>

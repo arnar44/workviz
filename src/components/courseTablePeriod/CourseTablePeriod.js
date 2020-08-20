@@ -4,7 +4,7 @@ import './CourseTablePeriod.scss';
 import { FileContext } from '../../context/FileContext';
 
 function CourseTablePeriod(props) {
-    const { courses } = props;
+    const { courses, meHandler, mlHandler, localHover } = props;
 
     const { selectedCourses,
             selectedTeachers,
@@ -12,7 +12,6 @@ function CourseTablePeriod(props) {
             taskAlloFilter,
             teacherAlloFilter,
             teacherHover,
-            setCourseHover,
             grayCourseFilter,
             courseHighlighting,
             courseClickedHandler
@@ -25,13 +24,18 @@ function CourseTablePeriod(props) {
 
         // Nothing hovered, no selected courses, no selected teachers (or seleceted teachers but search is isolated) -> neutral state 
         const check = (isolatedSearch) || (!isolatedSearch && selectedTeachers.length === 0)
-        if(!teacherHover && selectedCourses.length === 0 && check)
+        if(!teacherHover && !localHover && selectedCourses.length === 0 && check)
             return '';
 
-        // Teacher hovere is priority #1
+        // Teacher hovere is priority #1 (and course hover)
         if(teacherHover) {
             if(teacherHover.includes(course))
                 return ' focus';
+        }
+        else if(localHover) {
+            if(course === localHover) {
+                return ' focus'
+            }
         }
         // Selected Courses is priority #2
         else if(selectedCourses.length !== 0 || selectedTeachers.length !== 0) {
@@ -49,8 +53,6 @@ function CourseTablePeriod(props) {
 
         return ' noFocus';
     }
-
-    let timer = null;
     
     const filterCourses = (color, code, cName, teachers) => {
         const noFilter = !taskAlloFilter && !teacherAlloFilter && !grayCourseFilter;
@@ -64,11 +66,8 @@ function CourseTablePeriod(props) {
                 <button 
                     key={code} 
                     className={cName}
-                    onMouseEnter={() => {
-                        clearTimeout(timer);
-                        setCourseHover(teachers)
-                    }}
-                    onMouseLeave={() => timer = setTimeout( () => setCourseHover(null), 200)}
+                    onMouseEnter={() => meHandler(teachers, code)}
+                    onMouseLeave={() => mlHandler()}
                     onClick={()=> courseClickedHandler(code)}
                 >
                 {code}

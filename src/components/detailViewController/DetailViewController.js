@@ -1,23 +1,24 @@
 import React, { useContext } from 'react';
 
 import { FileContext } from '../../context/FileContext';
+import CourseDetailsViewController from '../courseDetailsViewController/CourseDetailsViewController';
+import TeacherDetailsViewController from '../teacherDetailsViewController/TeacherDetailsViewController';
 
 function DetailViewController(props) {
 
     const { teacher, course } = props;
     const { teacherData, courseData } = useContext(FileContext);
-    /*
-    let detailData = null;
-
-    if(teacher) 
-        detailData = teacherData[teacher];
-    else
-        detailData = courseData[course];
-    */
-
+    
+    const viewSelector = () => {
+        if(teacher)
+            return <TeacherDetailsViewController name={teacher} teacher={teacherData[teacher]} />
+        
+        return <CourseDetailsViewController code={course} course={courseData[course]} />
+    }
+    
     return (
         <div className='DetailView' >
-            <p>Detail View!</p>
+            {viewSelector()}
         </div>
     )
 }

@@ -79,9 +79,9 @@ function CourseOverviewTableRow(props) {
    
     return (
         <tr>
-            {row.map( column => {
+            {row.map( (column, i) => {
                 return (
-                    <td className='courseTablePeriod'>
+                    <td className='courseTablePeriod' key={i}>
                         {column.map( course => {
                             const focus = getFocus(course.code, course.teachers);
                             const cName = `courseTablePeriod__course courseTablePeriod__course--${course.color}${focus}`

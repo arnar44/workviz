@@ -36,7 +36,6 @@ function TeacherOverviewTableController() {
 
     const { setTeacherHover, courseHover, showAllInTable, allowPopup, isolatedSearch } = useContext(StateContext);
 
-    const [ data, setData ] = useState(sessionTOData);
     const [ hoverData, setHoverData ] = useState(null);
     const [ orderCol, setOrderCol ] = useState(['none', false]);
 
@@ -166,16 +165,7 @@ function TeacherOverviewTableController() {
         return hText;
     }
 
-    // Handles course hover
-    useEffect(() => {
-        if(courseHover)
-            setHoverData(sessionTOData.filter( tObj => courseHover.includes(tObj.name))); 
-        else
-            setHoverData(null);
-    }, [courseHover, sessionTOData]);
-
-    // Handles filters and Selection (in top view)
-    useEffect(() => {
+    const filterData = () => {
         let tmpData = sessionTOData;
 
         // Filter data on selected teachers (and selected courses)
@@ -223,8 +213,22 @@ function TeacherOverviewTableController() {
             }
         }
 
-        setData(tmpData);
-    
+        return tmpData;
+    }
+
+    const [ data, setData ] = useState(filterData());
+
+    // Handles course hover
+    useEffect(() => {
+        if(courseHover)
+            setHoverData(sessionTOData.filter( tObj => courseHover.includes(tObj.name))); 
+        else
+            setHoverData(null);
+    }, [courseHover, sessionTOData]);
+
+    // Handles filters and Selection (in top view)
+    useEffect(() => {
+        setData(filterData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sessionTOData, selectedTeachers, removedPositions, removedDepartments, isolatedSearch,
         konteringMinMaxSet, bemannadMinMaxSet, htMinMaxSet, vtMinMaxSet, selectedCourses,

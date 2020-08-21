@@ -7,8 +7,13 @@
     flex-basis: 100%;
     margin-bottom: $gutter/2;
 
+    //display: flex;
+    //flex-direction: column;
+    //overflow-y: auto;
+}
+
+.TopView > div:first-child {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    
-    overflow-y: auto;
 }

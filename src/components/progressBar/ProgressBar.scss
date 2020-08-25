@@ -1,0 +1,23 @@
+@import '../../StyleConfig.scss';
+
+.progress-col {
+
+    flex: 1 1 0px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__bar {
+
+    }
+
+    &__label {
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    &__unknown {
+        font-size: 0.7em;
+    }
+}

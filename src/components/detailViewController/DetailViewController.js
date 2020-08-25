@@ -4,6 +4,8 @@ import { FileContext } from '../../context/FileContext';
 import CourseDetailsViewController from '../courseDetailsViewController/CourseDetailsViewController';
 import TeacherDetailsViewController from '../teacherDetailsViewController/TeacherDetailsViewController';
 
+import './DetailViewController.scss';
+
 function DetailViewController(props) {
 
     const { teacher, course } = props;

@@ -23,6 +23,7 @@ $color-neutral: #F7F7FF;
 $color-yellow: #FED766;
 $color-light: #F7F9F9;
 $color-green: #61E294;
+$color-darkGreen: #3b8a5a;
 $color-active: #4D5382;
 $color-button: #595959;
 
@@ -61,6 +62,7 @@ $transition: 250ms ease-in-out;
     blueColor: $color-blue;
     redColor: $color-red;
     greenColor: $color-green;
+    darkGreenColor: $color-darkGreen;
     yellowColor: $color-yellow;
     grayColor: $color-button;
 }

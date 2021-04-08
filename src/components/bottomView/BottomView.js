@@ -1,40 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useRef, useContext } from 'react';
 
 import './BottomView.scss';
-import CourseOverView from '../courseOverView/CourseOverView';
-import BottomViewControls from '../bottomViewControls/BottomViewControls';
+import CourseOverviewController from '../courseOverviewController/CourseOverviewController';
+import TeacherOverviewController from '../teacherOverviewController/TeacherOverviewController';
 import { StateContext } from '../../context/StateContext';
 
-function BottomView(props) {
+function BottomView() {
 
-    const { setTaskAlloFilter, setTeacherAlloFilter, setGrayCourseFilter } = useContext(StateContext);
-
-    const taskFilterHandler = () => {
-        setTaskAlloFilter( prev => !prev);
-        setTeacherAlloFilter(false);
-        setGrayCourseFilter(false);
-    }
-
-    const teacherFilterHandler = () => {
-        setTeacherAlloFilter(prev => !prev);
-        setTaskAlloFilter(false);
-        setGrayCourseFilter(false);
-    }
-
-    const grayFilterHandler = () => {
-        setGrayCourseFilter(prev => !prev);
-        setTaskAlloFilter(false);
-        setTeacherAlloFilter(false);
-    }
+    const { teacherIsTopView } = useContext(StateContext);
+    const bottoViewRef = useRef(null);
 
     return (
-        <div className='BottomView'>
-            <BottomViewControls 
-                taskFilterHandler={taskFilterHandler}
-                teacherFilterHandler={teacherFilterHandler}
-                grayFilterHandler={grayFilterHandler}
-            />
-            <CourseOverView />
+        <div className='BottomView' ref={bottoViewRef} >
+            { teacherIsTopView && <CourseOverviewController /> }
+            { !teacherIsTopView && <TeacherOverviewController topViewRef={bottoViewRef} /> }
         </div>
     )
 }

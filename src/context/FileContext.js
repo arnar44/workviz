@@ -53,7 +53,7 @@ const FileProvider = props => {
     const [ tmpDataIncluded, setTmpDataIncluded ] = useState(false);
 
     // Max values that can be selected in the Multi search (teacher+courses)
-    const MAX_SEARCH_SELECTION = 5;
+    const MAX_SEARCH_SELECTION = 3;
 
     // Handler for when "Include Temp Teachers" is toggled true/false
     const onIncludeTempToggle = (e,d) => {

@@ -1,129 +1,76 @@
-import React, { useRef, useState, useContext } from 'react';
-import * as d3 from 'd3';
+import React, { useRef, useContext, useEffect, useState } from 'react';
 
 import './TopView.scss';
-import TopViewControls from '../topViewControls/TopViewControls';
-import BarChartOverview from '../barChartOverview/BarChartOverview';
-import TableOverview from '../tableOverview/TableOverview';
+import TeacherOverviewController from '../teacherOverviewController/TeacherOverviewController';
+import CourseOverviewController from '../courseOverviewController/CourseOverviewController';
+import DetailViewController from '../detailViewController/DetailViewController';
+import { Tab, Menu } from 'semantic-ui-react';
+import { StateContext } from '../../context/StateContext';
 import { FileContext } from '../../context/FileContext';
-
 
 function TopView() {
 
-    const { 
-        barchartData,
-        setBarchartData,
-        variableOnDisplay,
-        setVariableOnDisplay
-    } = useContext(FileContext);
-
-    const [ view, setView ] = useState('Table');
+    const { teacherIsTopView } = useContext(StateContext);
+    const { selectedTeachers, selectedCourses, setSelectedCourses, setSelectedTeachers } = useContext(FileContext);
     const topViewRef = useRef(null);
+    const [ activeIndex, setActiveIndex ] = useState(0);
 
-    const getViewSwitchProps = () => {
-
-        const selectionHandler = (e, d) => setView(d.value);
-
-        const options = [
-            {
-                key: 'Table',
-                icon: 'table',
-                text: 'Table',
-                value: 'Table',
-                content: 'Table'
-            },
-            {
-                key: 'Barchart',
-                icon: 'chart bar outline',
-                text: 'Barchart',
-                value: 'Barchart',
-                content: 'Barchart'
-            }
-        ]
-
-        const defaultValue = options[0].value;
-        const header = 'Select view';
-        const iconName = 'eye';
-
-        return {
-            iconName,
-            inline: true,
-            header,
-            options,
-            defaultValue,
-            handler: selectionHandler
-        }
-
-
+    const getMenuItem = (label, handler) => {
+        return (
+            <Menu.Item key={label}>
+                {label}
+                <button className='tab-button' onClick={() => handler(prev => prev.filter( obj => obj !== label))}>
+                    {'\u292b'}
+                </button>
+            </Menu.Item>
+        )
     }
 
-    const getVariableSwitchProps = () => {
+    const getOverview = () => {
+        if(teacherIsTopView) 
+            return <TeacherOverviewController topViewRef={topViewRef} />
+        
+        return <CourseOverviewController />
+    }
 
-        const selectionHandler = (e, d) => {
-            setBarchartData(prevData => {
-                return prevData.sort( (a,b) => d3.descending(a[d.value], b[d.value]));
-            })
-            setVariableOnDisplay(d.value);
-        };
-
-        const options = [
-            {
-                key: 'Balance',
-                icon: 'search',
-                text: 'Balance (%)',
-                value: 'Balance',
-                content: 'Balance (%)'
-            },
-            {
-                key: 'EOY Balance',
-                icon: 'search',
-                text: 'EOY Balance (%)',
-                value: 'EOY Balance',
-                content: 'End-of-Year Balance (%)'
-            },
-            {
-                key: 'BOY Balance',
-                icon: 'search',
-                text: 'BOY Balance (%)',
-                value: 'BOY Balance',
-                content: 'Beginning-of-Year Balance (%)'
-            },
+    const getPanes = () => {
+        let panesTmp = [
+            { menuItem: `${teacherIsTopView ? 'Teachers' : 'Courses'}`, render: getOverview }
         ];
 
-        const defaultValue = variableOnDisplay;
-        const header = 'Select Data on Display';
-        const iconName = 'database';
+        selectedTeachers.map( teacher => {
+            panesTmp.push({ menuItem: getMenuItem(teacher, setSelectedTeachers), render: () => <DetailViewController teacher={teacher} /> })
+        });
 
-        return {
-            iconName,
-            inline: true,
-            header,
-            options,
-            defaultValue,
-            handler: selectionHandler
-        }
+        selectedCourses.map( course => {
+            panesTmp.push({ menuItem: getMenuItem(course, setSelectedCourses), render: () => <DetailViewController course={course} /> });
+        });
+        
+        return panesTmp;
     }
 
-    const viewSwitchProps = getViewSwitchProps();
-    const variableSwitchProps = getVariableSwitchProps();
+    const [ panes, setPanes ] = useState(getPanes());
+
+    useEffect( () => {
+        const tabs = selectedCourses.length + selectedTeachers.length;
+        if(activeIndex > tabs)
+            setActiveIndex(tabs);
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [activeIndex, selectedCourses, selectedTeachers])
+
+    useEffect( () => {
+        setPanes(getPanes()); 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedTeachers, selectedCourses, teacherIsTopView]);
+    
     return (
         <div className='TopView' ref={topViewRef}>
-            <TopViewControls
-                view={view}
-                viewSwitchProps={viewSwitchProps}
-                variableSwitchProps={variableSwitchProps} 
-            />
-            {   view === 'Barchart' && 
-                    <BarChartOverview 
-                        topViewRef={topViewRef}
-                        variableOnDisplay={variableOnDisplay}
-                        setVariableOnDisplay={setVariableOnDisplay}
-                        data={barchartData}
-                    />
-            }
-            {   view === 'Table' && 
-                    <TableOverview /> 
-            }
+            <Tab 
+                panes={panes}
+                activeIndex={activeIndex}
+                onTabChange={ (e, { activeIndex }) => setActiveIndex( activeIndex ) }
+            /> 
         </div>
     )
 }

@@ -1,0 +1,6 @@
+@import '../../StyleConfig.scss';
+
+.DetailView {
+    padding: $gutter/3 $gutter/3 0 $gutter/3;
+    height: calc(100% - 40px);
+}

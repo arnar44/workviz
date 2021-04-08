@@ -3,5 +3,8 @@
 .BottomView {
     height: 100%;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.75);
-    overflow: auto;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
 }

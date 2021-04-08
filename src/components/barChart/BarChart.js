@@ -67,7 +67,7 @@ function BarChart(props) {
 
     const { data, parentRef, value } = props;
     const { selectedTeachers, selectedCourses } = useContext(FileContext);
-    const { courseHover, isolatedSearch } = useContext(StateContext);
+    const { courseHover, isolatedSearch, teacherIsTopView } = useContext(StateContext);
 
 
     const [height, setHeight] = useState(0);
@@ -198,9 +198,9 @@ function BarChart(props) {
     };
     
     useEffect(() => {
-
+        const sizeOnView = teacherIsTopView ? 90 : 57;
         const resizeHandler = () => {
-            setHeight(parentRef.current.offsetHeight - 57);
+            setHeight(parentRef.current.offsetHeight - sizeOnView);
             setWidth(parentRef.current.offsetWidth);
         }
 
@@ -211,7 +211,7 @@ function BarChart(props) {
             window.removeEventListener('resize', resizeHandler, true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, []);
+      }, [teacherIsTopView]);
 
     useEffect(() => {
         if(height > 0 && width > 0) {

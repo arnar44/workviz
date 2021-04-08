@@ -97,18 +97,18 @@ The teacher data can be viewed in a 'barchart' or 'table'. Switching between vie
 
  Example of table with 3 selected teachers and the 'Show All' feature enabled.
 
-  ![alt text](./screenshots/to_table_selected.png "Teacher Overview - Table selected")
+  ![alt text](./screenshots/to_table_selected.PNG "Teacher Overview - Table selected")
 
   Example of table with 3 selected teachers. 'Show all' is disabled, and color coding has been changed and columns removed in 'Table settings'
 
-  ![alt text](./screenshots/to_table_selected_notall.png "Teacher Overview - Table selected 2")
+  ![alt text](./screenshots/to_table_selected_notall.PNG "Teacher Overview - Table selected 2")
 
 ### Course data
 The courses are simply listed out. There are 4 columns, each representing the perios in which the course will take place. There are also 3 rows. The top row includes courses that only take place in a single period, row 2 includes courses that take place over 2 perios and the 3 row includes courses that take place over all 4 periods.
 
 Courses can be filtered after status (color) by pressing the red, yellow and gray buttons. 
 
-  ![alt text](./screenshots/co_filter.png "Course Overview - Filter")
+  ![alt text](./screenshots/co_filter.PNG "Course Overview - Filter")
 
   Red indicates that 'task allocation is needed' which means that certain tasks within a course have been budgeted but no work has been allocated to the course.
 
@@ -120,7 +120,7 @@ Courses can be filtered after status (color) by pressing the red, yellow and gra
 
   Clicking a course will also 'select' that course, much like when a teacher is selected. A tab will open up displaying some more information and visualization of the course data, this is where development was stoppend, so it still needs some work, but some of the data is at display. 
 
-  ![alt text](./screenshots/course_details.png "Course details")  
+  ![alt text](./screenshots/course_details.PNG "Course details")  
 
   More information about the progress bars can be accessed by hovering over the question mark in the top left corner.
 

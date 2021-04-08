@@ -3,6 +3,7 @@ import React from 'react';
 import './CourseDetailsViewController.scss'
 import CourseDetailsViewInfo from '../courseDetailsViewInfo/CourseDetailsViewInfo';
 import ProgressBarController from '../progressBarController/ProgressBarController';
+import CourseEditController from '../courseEditController/CourseEditController';
 
 function CourseDetailsViewController(props) {
 
@@ -19,11 +20,11 @@ function CourseDetailsViewController(props) {
                 credits={course.Credits}
             />
             <div className='Course-Details__column'>
-                <div className='Course-Details__column Course-Details__column--row'>
+                <div className='Course-Details__column Course-Details__column--topRow'>
                     <ProgressBarController course={course}/>
                 </div>
-                <div className='Course-Details__column Course-Details__column--row'>
-                    <p>Bottomhalf</p>
+                <div className='Course-Details__column Course-Details__column--bottomRow'>
+                    <CourseEditController course={course} />
                 </div>
             </div>
         </div>

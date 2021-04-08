@@ -29,11 +29,11 @@ function ProgressBarController(props) {
     }
 
     const legendVals = [
-        { border: `3px solid ${styles.greenColor}`, text:'Allication matches budget'},
-        { border: `3px solid ${styles.darkGreenColor}`, text:'Allocation exceeds budget'},
-        { border: `3px solid ${styles.redColor}`, text:'Missing allocation'},
-        { border: `3px solid ${styles.yellowColor}`, text:'Allocation includes UNKNOWN MID'},
-        { border: '3px dashed black', text:'Not budgeted'}
+        { key: 'green', border: `3px solid ${styles.greenColor}`, text:'Allication matches budget'},
+        { key: 'Darkgreen', border: `3px solid ${styles.darkGreenColor}`, text:'Allocation exceeds budget'},
+        { key: 'red', border: `3px solid ${styles.redColor}`, text:'Missing allocation'},
+        { key: 'yellow', border: `3px solid ${styles.yellowColor}`, text:'Allocation includes UNKNOWN MID'},
+        { key: 'dotted', border: '3px dashed black', text:'Not budgeted'}
     ]
 
     const getValues = (role, bKey, aKey, label) => {
@@ -57,9 +57,9 @@ function ProgressBarController(props) {
         }
     }
 
-    const getLegend = (border, text) => {
+    const getLegend = (border, text, key) => {
         return (
-            <div style={{display: 'flex', marginBottom: '5px', alignItems:'center'}}>
+            <div key={key} style={{display: 'flex', marginBottom: '5px', alignItems:'center'}}>
                 <div style={getStyle(border)}></div>
                 <p>{text}</p>
             </div>
@@ -71,7 +71,7 @@ function ProgressBarController(props) {
             <div style={{paddingTop: '10px'}}>
                 <Popup trigger={<button style={{padding: '2px 5px'}}>?</button>}>
                     <Header as='h5' content='Progress Legend' />
-                    {legendVals.map( lObj => getLegend(lObj.border, lObj.text))}
+                    {legendVals.map( lObj => getLegend(lObj.border, lObj.text, lObj.key))}
                 </Popup>
             </div>
             {keys.map( keyArr => <ProgressBar key={keyArr[0]} barProps={getValues(keyArr[0], keyArr[1], keyArr[2], keyArr[3])}/>)}

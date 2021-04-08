@@ -74,7 +74,7 @@ function CourseDetailsViewInfo(props) {
         <p>{code}</p>
         <p>{shortName}</p>
         <h4>Responsible</h4>
-        {responsible.map( teach => <p key={teach}>{teach}</p> )}
+        {responsible?.map( teach => <p key={teach}>{teach}</p>) ?? <p>None</p>}
         <h4>Period(s)</h4>
         {periods.map( per => <p key={per}>{per}</p> )}
         <h4>KTH-Students</h4>

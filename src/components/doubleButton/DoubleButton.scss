@@ -1,0 +1,36 @@
+@import '../../StyleConfig.scss';
+
+.doubleButton {
+    margin-bottom: $gutter;
+}
+
+.dButton {
+    padding: 5px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 50%;
+
+    
+    &__disabled {
+        padding: 5px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        opacity: 0.4;
+        width: 50%;
+    }
+
+    &__disabled:hover {
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+    }
+
+    &__disabled:focus {
+        outline: 0;
+    }
+
+}
+
+.dButton:focus {
+    outline: 0;
+}
+ 
